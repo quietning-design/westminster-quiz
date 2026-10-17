@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>《威斯敏斯特信条》（1647）第一章“论圣经”在线测试（10题精选版）</title>
+  <title>《威斯敏斯特信条》（1647）在线测试 · 试题目录</title>
   <style>
     :root {
       --bg-primary: #f6f3ec;
@@ -14,15 +14,7 @@
       --text-muted: #7b818c;
       --accent: #7c2d12;
       --accent-hover: #9a3412;
-      --accent-soft: #fef3c7;
-      --gold: #b45309;
       --border: #dfd8c8;
-      --correct-bg: #ecfdf5;
-      --correct-border: #10b981;
-      --correct-text: #065f46;
-      --wrong-bg: #fef2f2;
-      --wrong-border: #ef4444;
-      --wrong-text: #991b1b;
       --shadow: 0 4px 20px rgba(31, 36, 45, 0.06);
       --radius: 12px;
     }
@@ -41,11 +33,10 @@
       padding-bottom: 60px;
     }
 
-    /* Header */
     .hero {
       background: linear-gradient(135deg, #271c19 0%, #431407 55%, #1e293b 100%);
       color: #f8fafc;
-      padding: 36px 20px 30px;
+      padding: 48px 20px 44px;
       text-align: center;
       border-bottom: 4px solid #d97706;
     }
@@ -59,430 +50,137 @@
       letter-spacing: 0.08em;
       padding: 4px 14px;
       border-radius: 999px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .hero h1 {
-      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      font-size: clamp(1.6rem, 3.4vw, 2.3rem);
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       letter-spacing: 0.02em;
     }
 
     .hero p {
       color: #cbd5e1;
-      font-size: 0.96rem;
+      font-size: 1rem;
       max-width: 680px;
       margin: 0 auto;
     }
 
-    /* Container */
     .container {
-      max-width: 900px;
-      margin: -18px auto 0;
+      max-width: 960px;
+      margin: -20px auto 0;
       padding: 0 16px;
     }
 
-    /* Top Control Bar */
-    .toolbar {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 18px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .mode-switch {
-      display: inline-flex;
-      background: var(--bg-subtle);
-      padding: 4px;
-      border-radius: 8px;
-      gap: 4px;
-    }
-
-    .mode-btn {
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      padding: 7px 14px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .mode-btn.active {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(124, 45, 18, 0.25);
-    }
-
-    .status-group {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .stat-pill {
-      background: var(--bg-subtle);
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-
-    .stat-pill span {
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
       color: var(--accent);
-    }
-
-    .view-switch {
+      margin: 4px 0 16px;
       display: flex;
+      align-items: center;
       gap: 8px;
     }
 
-    .btn-outline {
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--text-primary);
-      padding: 6px 12px;
-      border-radius: 7px;
-      font-size: 0.86rem;
-      cursor: pointer;
-      transition: all 0.18s;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* Progress bar */
-    .progress-wrap {
-      background: #e5dec9;
-      height: 8px;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 18px;
-    }
-
-    .progress-fill {
-      background: linear-gradient(90deg, #b45309, #7c2d12);
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    /* Question Grid Navigator */
-    .nav-panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 0.86rem;
-      color: var(--text-secondary);
-    }
-
-    .nav-grid {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
-      gap: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
     }
 
-    .nav-dot {
-      height: 34px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #fff;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .nav-dot:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .nav-dot.current {
-      outline: 2px solid var(--accent);
-      outline-offset: 1px;
-      font-weight: 700;
-    }
-
-    .nav-dot.answered {
-      background: #fef3c7;
-      border-color: #f59e0b;
-      color: #92400e;
-    }
-
-    .nav-dot.correct {
-      background: var(--correct-bg);
-      border-color: var(--correct-border);
-      color: var(--correct-text);
-    }
-
-    .nav-dot.wrong {
-      background: var(--wrong-bg);
-      border-color: var(--wrong-border);
-      color: var(--wrong-text);
-    }
-
-    /* Question Card */
-    .question-card {
+    .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
-      margin-bottom: 18px;
       box-shadow: var(--shadow);
-      transition: transform 0.2s;
-    }
-
-    .q-meta {
+      text-decoration: none;
+      color: inherit;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      gap: 8px;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .q-number {
-      font-size: 0.85rem;
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #b45309, #7c2d12);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(124, 45, 18, 0.14);
+      border-color: #d97706;
+    }
+
+    .card-chapter {
+      font-size: 0.8rem;
       font-weight: 700;
-      color: var(--accent);
+      color: #92400e;
       background: #ffedd5;
       padding: 3px 10px;
       border-radius: 6px;
+      align-self: flex-start;
     }
 
-    .q-tag {
-      font-size: 0.8rem;
+    .card h2 {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
       color: var(--text-muted);
+    }
+
+    .card-meta span {
       background: var(--bg-subtle);
       padding: 3px 10px;
-      border-radius: 6px;
+      border-radius: 999px;
     }
 
-    .q-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
-
-    .options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .option-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 13px 15px;
-      border: 1.5px solid var(--border);
-      border-radius: 9px;
-      background: #fff;
-      cursor: pointer;
-      transition: all 0.16s ease;
-      text-align: left;
-      width: 100%;
-      font-family: inherit;
-      font-size: 0.98rem;
-      color: var(--text-primary);
-      line-height: 1.55;
-    }
-
-    .option-item:hover:not(:disabled) {
-      border-color: var(--accent);
-      background: #fffaf5;
-    }
-
-    .option-key {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--bg-subtle);
-      color: var(--text-secondary);
+    .card-cta {
       font-weight: 700;
-      font-size: 0.88rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-      transition: all 0.16s;
-    }
-
-    .option-item.selected {
-      border-color: #d97706;
-      background: #fffbeb;
-    }
-
-    .option-item.selected .option-key {
-      background: #d97706;
-      color: #fff;
-    }
-
-    .option-item.correct {
-      border-color: var(--correct-border);
-      background: var(--correct-bg);
-      color: var(--correct-text);
-    }
-
-    .option-item.correct .option-key {
-      background: var(--correct-border);
-      color: #fff;
-    }
-
-    .option-item.wrong {
-      border-color: var(--wrong-border);
-      background: var(--wrong-bg);
-      color: var(--wrong-text);
-    }
-
-    .option-item.wrong .option-key {
-      background: var(--wrong-border);
-      color: #fff;
-    }
-
-    .option-item:disabled {
-      cursor: default;
-    }
-
-    /* Explanation Box */
-    .explanation-box {
-      margin-top: 18px;
-      padding: 15px 18px;
-      border-radius: 9px;
-      background: #f8fafc;
-      border-left: 4px solid var(--accent);
-      font-size: 0.94rem;
-      color: #334155;
-      display: none;
-    }
-
-    .explanation-box.visible {
-      display: block;
-      animation: fadeIn 0.25s ease;
-    }
-
-    .exp-header {
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .exp-header.is-correct {
-      color: var(--correct-text);
-    }
-
-    .exp-header.is-wrong {
-      color: var(--wrong-text);
-    }
-
-    /* Bottom Navigation Buttons */
-    .card-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      gap: 10px;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 8px;
+      color: var(--accent);
       font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
+      margin-top: 4px;
     }
 
-    .btn-primary:hover:not(:disabled) {
-      background: var(--accent-hover);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.45;
+    .card.coming {
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
-    /* Score Summary Modal / Card */
-    .result-banner {
-      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-      border: 2px solid #f59e0b;
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-      display: none;
+    .card.coming:hover {
+      transform: none;
+      box-shadow: var(--shadow);
+      border-color: var(--border);
     }
 
-    .result-banner.visible {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .score-circle {
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1.1;
-      margin: 6px 0;
-    }
-
-    .result-feedback {
-      font-size: 1.02rem;
-      color: #78350f;
-      margin-bottom: 14px;
-      font-weight: 600;
-    }
-
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    /* Study Notes Footer */
     .study-tip {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px 22px;
-      margin-top: 24px;
+      margin-top: 26px;
       box-shadow: var(--shadow);
       font-size: 0.93rem;
       color: var(--text-secondary);
@@ -492,24 +190,9 @@
       color: var(--accent);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 600px) {
-      .question-card {
-        padding: 18px 15px;
-      }
-      .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .mode-switch {
-        justify-content: center;
-      }
-      .status-group {
-        justify-content: space-between;
+      .hero {
+        padding: 36px 16px 34px;
       }
     }
   </style>
@@ -518,500 +201,53 @@
 
   <header class="hero">
     <div class="hero-badge">WESTMINSTER CONFESSION OF FAITH (1647)</div>
-    <h1>《威斯敏斯特信条》第一章“论圣经”在线测试</h1>
-    <p>10 道精选测试题 · 对应信条 1.1–1.10 条：圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者</p>
+    <h1>《威斯敏斯特信条》在线测试</h1>
+    <p>按章编排的单项选择题测试，用于学习小组的预习测试与复习巩固。选择下方章节开始答题</p>
   </header>
 
   <main class="container">
-    <!-- Top Controls -->
-    <section class="toolbar">
-      <div class="mode-switch" role="tablist" aria-label="答题模式">
-        <button class="mode-btn active" id="modePracticeBtn" onclick="setMode('practice')">练习模式（即时解析）</button>
-        <button class="mode-btn" id="modeExamBtn" onclick="setMode('exam')">考试模式（交卷评分）</button>
-      </div>
+    <h2 class="section-title">📖 试题目录</h2>
 
-      <div class="status-group">
-        <div class="stat-pill">已答：<span id="answeredCount">0</span> / 10</div>
-        <div class="stat-pill" id="liveScorePill">正确率：<span id="accuracyText">--</span></div>
-        <div class="view-switch">
-          <button class="btn-outline" id="toggleViewBtn" onclick="toggleLayoutView()">切换为整卷浏览</button>
-          <button class="btn-outline" onclick="resetQuiz()">重新作答</button>
+    <div class="grid">
+      <a class="card" href="chapter1.html">
+        <span class="card-chapter">第一章</span>
+        <h2>论圣经</h2>
+        <p>覆盖信条 1.1–1.10 条：圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者。</p>
+        <div class="card-meta">
+          <span>10 道题</span>
+          <span>每题 10 分</span>
+          <span>练习 / 考试模式</span>
+        </div>
+        <span class="card-cta">开始答题 →</span>
+      </a>
+
+      <a class="card" href="chapter2.html">
+        <span class="card-chapter">第二章</span>
+        <h2>论上帝和三位一体</h2>
+        <p>覆盖信条 2.1–2.3 条：上帝的存有与完全、至纯之灵、无限与不变、旨意与荣耀、怜悯与公义、自足、无误的知识、万有的根源与主权，以及三位一体的位格与永恒关系。</p>
+        <div class="card-meta">
+          <span>10 道题</span>
+          <span>每题 10 分</span>
+          <span>练习 / 考试模式</span>
+        </div>
+        <span class="card-cta">开始答题 →</span>
+      </a>
+
+      <div class="card coming">
+        <span class="card-chapter">后续章节</span>
+        <h2>更多章节陆续推出</h2>
+        <p>《威斯敏斯特信条》其余各章的测试题将陆续补充上线，敬请期待。</p>
+        <div class="card-meta">
+          <span>敬请期待</span>
         </div>
       </div>
-    </section>
-
-    <div class="progress-wrap" aria-hidden="true">
-      <div class="progress-fill" id="progressBar"></div>
     </div>
 
-    <!-- Score Result Banner -->
-    <section class="result-banner" id="resultBanner">
-      <div style="font-size:0.9rem;color:#92400e;font-weight:600;">测试成绩单</div>
-      <div class="score-circle" id="finalScoreText">100 分</div>
-      <div class="result-feedback" id="finalFeedbackText"></div>
-      <div class="filter-bar">
-        <button class="btn-outline" onclick="filterReview('all')">查看全部 (10)</button>
-        <button class="btn-outline" onclick="filterReview('wrong')">仅看错题 (<span id="wrongCountBtn">0</span>)</button>
-        <button class="btn-outline" onclick="resetQuiz()">再测一次</button>
-      </div>
-    </section>
-
-    <!-- Question Number Navigator -->
-    <section class="nav-panel">
-      <div class="nav-panel-header">
-        <span>题号导航（点击可快速跳转，支持键盘 A/B/C/D 与左右方向键）</span>
-        <span id="examSubmitWrap" style="display:none;">
-          <button class="btn-primary" style="padding:5px 14px;font-size:0.84rem;" onclick="submitExam()">提交试卷</button>
-        </span>
-      </div>
-      <div class="nav-grid" id="navGrid"></div>
-    </section>
-
-    <!-- Questions Container -->
-    <section id="questionsContainer"></section>
-
-    <!-- Study Suggestion Footer -->
     <aside class="study-tip">
-      💡 <strong>学习建议与提示：</strong>
-      这10道测试题一一对应《威斯敏斯特信条》第一章（1.1–1.10条）关于圣经的<strong>必要性、正典范围、次经定性、权威性、自证与内在作证、全备性、清晰性、原文与翻译、以经解经及最高裁决者</strong>等核心神学要点。可以在您的学习小组中作为预习测试或复习巩固的工具！
+      💡 <strong>使用提示：</strong>
+      每章测试均提供<strong>练习模式</strong>（选完即刻显示对错与神学解析）与<strong>考试模式</strong>（答完全卷后统一交卷计分，并可“仅看错题”复盘）。支持题号导航与键盘 A/B/C/D、左右方向键作答。
     </aside>
   </main>
 
-  <script>
-    const QUESTIONS = [
-      {
-        id: 1,
-        section: "信条 1.1 · 圣经之至要性",
-        question: "某观点主张：“既然自然界与人性之光已展现了上帝的良善与权能，人类只需顺应自然之光即可获得救恩，无需特别书写下来的启示。”针对此观点，下列哪项神学批判最准确地反映了关于“圣经之至要性”的教导？",
-        options: {
-          A: "人性之光与创造护理之工虽使人无可推诿，但不足以将得救所必需的对上帝及其旨意的知识给予人。",
-          B: "上帝从前向祂百姓启示旨意的方法如今依然存在，因此圣经只是众多启示途径之一。",
-          C: "自然界只能彰显上帝的震怒而非良善，因此对人类认识上帝没有任何积极价值。",
-          D: "圣经之所以至要，主要是为了给社会法律和政治治理提供具体的条文准则。"
-        },
-        answer: "A",
-        explanation: "根据信条1.1条，人性之光和创造、护理之工虽彰显上帝的良善、智慧与权能使人无可推诿，但不足以将得救所必需的知识给予人；且上帝古时启示旨意的方法如今已止息，因此成文圣经对于得救是“至要”的。"
-      },
-      {
-        id: 2,
-        section: "信条 1.2 · 圣经正典范围",
-        question: "关于圣经正典书卷的范围与性质，下列阐述正确的是哪一项？",
-        options: {
-          A: "圣经正典仅包含旧约39卷，新约书卷属于教会传统而非默示。",
-          B: "圣经包括旧约24卷与新约27卷共计51卷书。",
-          C: "旧新约共66卷书都是上帝所默示的，是信仰与生活的准律。",
-          D: "圣经正典的范围可以根据时代的发展和教会会议的决议随意增减。"
-        },
-        answer: "C",
-        explanation: "信条1.2条完整列出了旧约39卷与新约27卷（共66卷），并宣告“这些书卷都是上帝所默示的，是信仰与生活的准则”。"
-      },
-      {
-        id: 3,
-        section: "信条 1.3 · 论次经（Apocrypha）",
-        question: "关于通常被称为“次经”（Apocrypha）的书卷，下列哪项态度符合《信条》的规定？",
-        options: {
-          A: "次经也是上帝默示的，具有与旧约正典同等的神圣权威。",
-          B: "次经虽非默示，但可作为教会制定核心教义和得救准则的依据。",
-          C: "次经并非出于上帝的默示，不属于圣经正典；在教会中没有任何权威性，只能当作一般人的著作来看待或使用。",
-          D: "次经属于可诅邪说，信徒在任何情况下都严禁阅读或参考。"
-        },
-        answer: "C",
-        explanation: "信条1.3条规定：“通常称为次经的各卷，并非出于上帝的默示，所以不属于圣经正典；因此，它们在上帝的教会中没有任何权威性，只能当作一般人的著作来看待或使用。”"
-      },
-      {
-        id: 4,
-        section: "信条 1.4 · 圣经之权威性",
-        question: "决定圣经最高权威的最终根据是什么？",
-        options: {
-          A: "教会历史上的大公会议见证与历代教父的肯定",
-          B: "圣经文体庄严与各部契合等无可比拟的外在特征",
-          C: "上帝是真理本身且为圣经的作者，因此圣经的权威完全取决于上帝",
-          D: "凡人理性经过严密逻辑推演后所给予的认可"
-        },
-        answer: "C",
-        explanation: "信条1.4条指出：“圣经的权威性应当受到人的信服，这权威性并不倚赖任何个人或教会的见证，而是完全在于其作者上帝，祂就是真理本身。所以，既然圣经是上帝的道，我们就应当接受。”"
-      },
-      {
-        id: 5,
-        section: "信条 1.5 · 圣灵的内在见证",
-        question: "一个人能够完全信服并确知圣经是无谬误的真理且具有神圣权威，其最根本的内在原因是：",
-        options: {
-          A: "受到教会历史见证的深刻感动与说服",
-          B: "圣灵的内在之工，藉着上帝的道，并与上帝的道一同在我们心里作证",
-          C: "圣经文体极其庄严，逻辑严密无可挑剔",
-          D: "个人获得了超越圣经文本之外的特别神秘异象"
-        },
-        answer: "B",
-        explanation: "信条1.5条阐明，尽管圣经有许多自证的外在优点，但“我们得以完全信服并确知圣经无谬误的真理性和神圣的权威性，乃是由于圣灵的内在之工，祂藉着上帝的道，并与上帝的道一同在我们心里作证”。"
-      },
-      {
-        id: 6,
-        section: "信条 1.6 · 圣经之全备性",
-        question: "下列关于“上帝全备旨意”获取方式的表述，哪一项最准确地符合关于“圣经之全备性”的教导？",
-        options: {
-          A: "必须完全依赖字面上逐字逐句的明文记载，任何逻辑推论均属非法。",
-          B: "或已明确记载于圣经之中，或可用合理与必要的推论，由圣经演绎而得。",
-          C: "主要是靠历代教会传统与口传教义来补充圣经未记载的部分。",
-          D: "随时可以通过圣灵赐给个人的“新启示”来不断扩充上帝的旨意。"
-        },
-        answer: "B",
-        explanation: "信条1.6条指出：“上帝全备的旨意……或已明确记载于圣经之中，或可用合理与必要的推论，由圣经演绎而得；不论是所谓的圣灵的新启示，还是人的遗传，都不得于任何时候加入圣经。”"
-      },
-      {
-        id: 7,
-        section: "信条 1.7 · 圣经之清晰性",
-        question: "关于圣经的“清晰性”（Perspicuity），下列哪种理解是正确的？",
-        options: {
-          A: "圣经中每一句经文对每个人来说都同样浅显易懂，没有任何深奥之处。",
-          B: "只有受过高等神学教育的学者才能理解圣经，普通信徒无法明白。",
-          C: "凡得救所必须知道、相信并遵行的事，圣经已明载详论，无学识者正当使用通常方法亦可获得充分理解。",
-          D: "圣经极其晦涩，必须由教皇或特定圣职人员垄断解释权。"
-        },
-        answer: "C",
-        explanation: "信条1.7条指出，虽然圣经各处经文并非一样明显，但“为得救所必须知道、相信并遵行的事，在圣经此处或彼处已明载而详论，以致不仅有学识的，而且无学识的，只要正当使用通常的方法，便都可以有充分的理解”。"
-      },
-      {
-        id: 8,
-        section: "信条 1.8 · 原文直接默示与护理保存",
-        question: "关于圣经原文（旧约希伯来文与新约希腊文）的权威与保存，下列说法符合《信条》的是：",
-        options: {
-          A: "原文在历史演变中已经严重失真，如今的手抄本不再具有可信度。",
-          B: "原文是上帝直接默示的，并因上帝特别的看顾和护理而在历代得以纯正保守，真实可信。",
-          C: "只有古代拉丁文通俗译本（Vulgate）才是上帝直接默示的官方文本。",
-          D: "圣经原文与后世任何译本在神圣默示的性质上完全没有任何区别。"
-        },
-        answer: "B",
-        explanation: "信条1.8条指出：“希伯来文旧约，和希腊文新约，都是上帝直接默示的，并且其纯正因上帝特别看顾和护理而在历代得以保守，所以它们是真实可信的。”"
-      },
-      {
-        id: 9,
-        section: "信条 1.9 · 解经原则：以经解经",
-        question: "根据《信条》第1.9条，解释圣经无谬误的最高原则是：",
-        options: {
-          A: "历代教父的注解与大公会议的决议",
-          B: "圣经本身（即以经解经）",
-          C: "现代历史批判学与世俗语言学",
-          D: "解释者个人的属灵直觉与个人经验"
-        },
-        answer: "B",
-        explanation: "信条1.9条明确指出：“解释圣经无谬误的原则，就是圣经本身；因此，当我们对圣经某处真实和完全的意义发生疑问时……就当查考其它更清楚的经文来加以解明。”"
-      },
-      {
-        id: 10,
-        section: "信条 1.10 · 信仰争论的最高裁决者",
-        question: "要判断一切信仰的争论，审查一切教会会议的决议、古代作者的意见和个人的主张，最高裁决者是：",
-        options: {
-          A: "罗马教皇或大主教",
-          B: "教会最高总会（Synod）的大多数代表表决",
-          C: "在圣经中说话的圣灵",
-          D: "人类理性和哲学思想"
-        },
-        answer: "C",
-        explanation: "信条1.10条规定：“要判断一切信仰的争论，审查一切教会会议的决议、古代作者的意见、世人的教训和个人的主张，我们所当依据的最高裁决者，除在圣经中说话的圣灵以外，别无其他。”"
-      }
-    ];
-
-    let state = {
-      mode: "practice",       // 'practice' | 'exam'
-      singleView: true,       // true: one question at a time, false: full list
-      currentIndex: 0,
-      userAnswers: {},        // { [questionId]: 'A' | 'B' | 'C' | 'D' }
-      examSubmitted: false,
-      reviewFilter: "all"     // 'all' | 'wrong'
-    };
-
-    function renderAll() {
-      renderToolbarStats();
-      renderNavGrid();
-      renderQuestions();
-      renderResultBanner();
-    }
-
-    function renderToolbarStats() {
-      const answeredKeys = Object.keys(state.userAnswers);
-      const answeredCount = answeredKeys.length;
-      document.getElementById("answeredCount").textContent = answeredCount;
-
-      const pct = Math.round((answeredCount / QUESTIONS.length) * 100);
-      document.getElementById("progressBar").style.width = pct + "%";
-
-      const accuracyEl = document.getElementById("accuracyText");
-      if (state.mode === "practice" || state.examSubmitted) {
-        if (answeredCount === 0) {
-          accuracyEl.textContent = "--";
-        } else {
-          let correct = 0;
-          answeredKeys.forEach(id => {
-            const q = QUESTIONS.find(item => item.id === Number(id));
-            if (q && state.userAnswers[id] === q.answer) correct++;
-          });
-          const denom = state.examSubmitted ? QUESTIONS.length : answeredCount;
-          accuracyEl.textContent = Math.round((correct / denom) * 100) + "% (" + correct + "/" + denom + ")";
-        }
-      } else {
-        accuracyEl.textContent = "交卷后揭晓";
-      }
-
-      document.getElementById("modePracticeBtn").classList.toggle("active", state.mode === "practice");
-      document.getElementById("modeExamBtn").classList.toggle("active", state.mode === "exam");
-      document.getElementById("toggleViewBtn").textContent = state.singleView ? "切换为整卷浏览" : "切换为逐题作答";
-      document.getElementById("examSubmitWrap").style.display =
-        state.mode === "exam" && !state.examSubmitted ? "inline-block" : "none";
-    }
-
-    function renderNavGrid() {
-      const grid = document.getElementById("navGrid");
-      grid.innerHTML = "";
-      QUESTIONS.forEach((q, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "nav-dot";
-        btn.textContent = q.id;
-
-        if (state.singleView && idx === state.currentIndex) {
-          btn.classList.add("current");
-        }
-
-        const picked = state.userAnswers[q.id];
-        const showJudgement = state.mode === "practice" || state.examSubmitted;
-
-        if (picked) {
-          if (showJudgement) {
-            btn.classList.add(picked === q.answer ? "correct" : "wrong");
-          } else {
-            btn.classList.add("answered");
-          }
-        } else if (state.examSubmitted) {
-          btn.classList.add("wrong");
-        }
-
-        btn.onclick = () => {
-          state.reviewFilter = "all";
-          if (state.singleView) {
-            state.currentIndex = idx;
-            renderAll();
-          } else {
-            const card = document.getElementById("q-card-" + q.id);
-            if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        };
-
-        grid.appendChild(btn);
-      });
-    }
-
-    function renderQuestions() {
-      const container = document.getElementById("questionsContainer");
-      container.innerHTML = "";
-
-      let listToRender = QUESTIONS;
-      if (!state.singleView && state.reviewFilter === "wrong") {
-        listToRender = QUESTIONS.filter(q => state.userAnswers[q.id] !== q.answer);
-      } else if (state.singleView) {
-        listToRender = [QUESTIONS[state.currentIndex]];
-      }
-
-      if (listToRender.length === 0) {
-        container.innerHTML = `
-          <div class="question-card" style="text-align:center;padding:40px 20px;">
-            <p style="font-size:1.1rem;font-weight:600;color:var(--correct-text);">太棒了！当前没有错题记录。</p>
-            <button class="btn-outline" style="margin-top:12px;" onclick="filterReview('all')">返回查看全部题目</button>
-          </div>
-        `;
-        return;
-      }
-
-      listToRender.forEach(q => {
-        const picked = state.userAnswers[q.id];
-        const reveal = (state.mode === "practice" && !!picked) || state.examSubmitted;
-
-        const card = document.createElement("article");
-        card.className = "question-card";
-        card.id = "q-card-" + q.id;
-
-        let optionsHtml = "";
-        ["A", "B", "C", "D"].forEach(key => {
-          let cls = "option-item";
-          if (reveal) {
-            if (key === q.answer) cls += " correct";
-            else if (picked === key && key !== q.answer) cls += " wrong";
-          } else if (picked === key) {
-            cls += " selected";
-          }
-
-          const disabledAttr = (state.mode === "practice" && !!picked) || state.examSubmitted ? "disabled" : "";
-          optionsHtml += `
-            <button class="${cls}" ${disabledAttr} onclick="selectOption(${q.id}, '${key}')">
-              <span class="option-key">${key}</span>
-              <span>${q.options[key]}</span>
-            </button>
-          `;
-        });
-
-        const isCorrect = picked === q.answer;
-        const statusTitle = isCorrect
-          ? `✓ 回答正确（正确答案：${q.answer}）`
-          : `✗ ${picked ? "回答有误，您选择了 " + picked : "本题未作答"}（正确答案：${q.answer}）`;
-
-        let footerNavHtml = "";
-        if (state.singleView) {
-          const prevDisabled = state.currentIndex === 0 ? "disabled" : "";
-          const isLast = state.currentIndex === QUESTIONS.length - 1;
-          let rightButtonHtml = "";
-
-          if (state.mode === "exam" && !state.examSubmitted && isLast) {
-            rightButtonHtml = `<button class="btn-primary" onclick="submitExam()">提交试卷并查看解析</button>`;
-          } else {
-            const nextDisabled = isLast ? "disabled" : "";
-            rightButtonHtml = `<button class="btn-primary" ${nextDisabled} onclick="goStep(1)">下一题 →</button>`;
-          }
-
-          footerNavHtml = `
-            <div class="card-actions">
-              <button class="btn-outline" ${prevDisabled} onclick="goStep(-1)">← 上一题</button>
-              <span style="font-size:0.86rem;color:var(--text-muted);">第 ${q.id} / ${QUESTIONS.length} 题</span>
-              ${rightButtonHtml}
-            </div>
-          `;
-        }
-
-        card.innerHTML = `
-          <div class="q-meta">
-            <span class="q-number">第 ${q.id} 题</span>
-            <span class="q-tag">${q.section}</span>
-          </div>
-          <h2 class="q-title">${q.question}</h2>
-          <div class="options-list">
-            ${optionsHtml}
-          </div>
-          <div class="explanation-box ${reveal ? "visible" : ""}">
-            <div class="exp-header ${isCorrect ? "is-correct" : "is-wrong"}">${statusTitle}</div>
-            <div><strong>神学解析：</strong>${q.explanation}</div>
-          </div>
-          ${footerNavHtml}
-        `;
-
-        container.appendChild(card);
-      });
-    }
-
-    function renderResultBanner() {
-      const banner = document.getElementById("resultBanner");
-      const allAnsweredInPractice =
-        state.mode === "practice" && Object.keys(state.userAnswers).length === QUESTIONS.length;
-
-      if (!state.examSubmitted && !allAnsweredInPractice) {
-        banner.classList.remove("visible");
-        return;
-      }
-
-      let correctCount = 0;
-      QUESTIONS.forEach(q => {
-        if (state.userAnswers[q.id] === q.answer) correctCount++;
-      });
-      const wrongCount = QUESTIONS.length - correctCount;
-      const score = correctCount * 10;
-
-      let feedback = "";
-      if (score >= 90) {
-        feedback = "卓越！您对《威斯敏斯特信条》第一章“论圣经”的教义脉络与细节掌握得非常扎实！";
-      } else if (score >= 80) {
-        feedback = "良好！您已准确把握改革宗圣经论的核心原则，可针对少量错题进一步巩固。";
-      } else if (score >= 60) {
-        feedback = "及格！建议对照信条 1.1–1.10 条原文与解析，重点复习容易混淆的教义概念。";
-      } else {
-        feedback = "建议仔细研读《威斯敏斯特信条》第一章条文及每道题下方的神学解析后再测一次。";
-      }
-
-      document.getElementById("finalScoreText").textContent = `${score} 分（答对 ${correctCount}/${QUESTIONS.length} 题）`;
-      document.getElementById("finalFeedbackText").textContent = feedback;
-      document.getElementById("wrongCountBtn").textContent = wrongCount;
-      banner.classList.add("visible");
-    }
-
-    function selectOption(questionId, optionKey) {
-      if (state.examSubmitted) return;
-      if (state.mode === "practice" && state.userAnswers[questionId]) return;
-
-      state.userAnswers[questionId] = optionKey;
-      renderAll();
-
-      // In exam mode + single question view, auto-advance briefly if not on last question
-      if (state.mode === "exam" && state.singleView && state.currentIndex < QUESTIONS.length - 1) {
-        setTimeout(() => {
-          if (state.mode === "exam" && !state.examSubmitted) {
-            state.currentIndex++;
-            renderAll();
-          }
-        }, 220);
-      }
-    }
-
-    function goStep(delta) {
-      const next = state.currentIndex + delta;
-      if (next >= 0 && next < QUESTIONS.length) {
-        state.currentIndex = next;
-        renderAll();
-      }
-    }
-
-    function setMode(newMode) {
-      if (state.mode === newMode) return;
-      state.mode = newMode;
-      state.examSubmitted = false;
-      state.reviewFilter = "all";
-      renderAll();
-    }
-
-    function toggleLayoutView() {
-      state.singleView = !state.singleView;
-      renderAll();
-    }
-
-    function submitExam() {
-      const answeredCount = Object.keys(state.userAnswers).length;
-      if (answeredCount < QUESTIONS.length) {
-        const unAnswered = QUESTIONS.length - answeredCount;
-        if (!confirm(`您还有 ${unAnswered} 道题尚未作答，确定现在交卷吗？`)) {
-          return;
-        }
-      }
-      state.examSubmitted = true;
-      state.singleView = false;
-      renderAll();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function filterReview(type) {
-      state.singleView = false;
-      state.reviewFilter = type;
-      renderAll();
-    }
-
-    function resetQuiz() {
-      state.userAnswers = {};
-      state.currentIndex = 0;
-      state.examSubmitted = false;
-      state.reviewFilter = "all";
-      renderAll();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Keyboard shortcuts support
-    window.addEventListener("keydown", e => {
-      if (!state.singleView) return;
-      const currentQ = QUESTIONS[state.currentIndex];
-      const key = e.key.toUpperCase();
-      if (["A", "B", "C", "D"].includes(key)) {
-        selectOption(currentQ.id, key);
-      } else if (e.key === "ArrowRight") {
-        goStep(1);
-      } else if (e.key === "ArrowLeft") {
-        goStep(-1);
-      }
-    });
-
-    // Initialize
-    renderAll();
-  </script>
 </body>
 </html>
