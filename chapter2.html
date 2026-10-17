@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《威斯敏斯特信条》（1647）第二章“论上帝和三位一体”在线测试</title>
+  <style>
+    :root {
+      --bg-primary: #f6f3ec;
+      --bg-card: #ffffff;
+      --bg-subtle: #efeae0;
+      --text-primary: #1f242d;
+      --text-secondary: #545b67;
+      --text-muted: #7b818c;
+      --accent: #7c2d12;
+      --accent-hover: #9a3412;
+      --accent-soft: #fef3c7;
+      --gold: #b45309;
+      --border: #dfd8c8;
+      --correct-bg: #ecfdf5;
+      --correct-border: #10b981;
+      --correct-text: #065f46;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #ef4444;
+      --wrong-text: #991b1b;
+      --shadow: 0 4px 20px rgba(31, 36, 45, 0.06);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "PingFang SC", "Noto Serif SC", "Microsoft YaHei", "Source Han Serif SC", serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      padding-bottom: 60px;
+    }
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #271c19 0%, #431407 55%, #1e293b 100%);
+      color: #f8fafc;
+      padding: 36px 20px 30px;
+      text-align: center;
+      border-bottom: 4px solid #d97706;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .nav-home {
+      display: inline-block;
+      color: #fcd34d;
+      text-decoration: none;
+      font-size: 0.85rem;
+      border: 1px solid rgba(252, 211, 77, 0.4);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      transition: background 0.2s;
+    }
+
+    .nav-home:hover {
+      background: rgba(245, 158, 11, 0.22);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: -18px auto 0;
+      padding: 0 16px;
+    }
+
+    /* Top Control Bar */
+    .toolbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background: var(--bg-subtle);
+      padding: 4px;
+      border-radius: 8px;
+      gap: 4px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(124, 45, 18, 0.25);
+    }
+
+    .status-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .stat-pill {
+      background: var(--bg-subtle);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .stat-pill span {
+      color: var(--accent);
+    }
+
+    .view-switch {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: #e5dec9;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #b45309, #7c2d12);
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Question Grid Navigator */
+    .nav-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+      gap: 6px;
+    }
+
+    .nav-dot {
+      height: 34px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-dot:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .nav-dot.current {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      font-weight: 700;
+    }
+
+    .nav-dot.answered {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+
+    .nav-dot.correct {
+      background: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+    }
+
+    .nav-dot.wrong {
+      background: var(--wrong-bg);
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+    }
+
+    /* Question Card */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .q-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .q-number {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: #ffedd5;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .q-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .q-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.98rem;
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+
+    .option-item:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: #fffaf5;
+    }
+
+    .option-key {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: all 0.16s;
+    }
+
+    .option-item.selected {
+      border-color: #d97706;
+      background: #fffbeb;
+    }
+
+    .option-item.selected .option-key {
+      background: #d97706;
+      color: #fff;
+    }
+
+    .option-item.correct {
+      border-color: var(--correct-border);
+      background: var(--correct-bg);
+      color: var(--correct-text);
+    }
+
+    .option-item.correct .option-key {
+      background: var(--correct-border);
+      color: #fff;
+    }
+
+    .option-item.wrong {
+      border-color: var(--wrong-border);
+      background: var(--wrong-bg);
+      color: var(--wrong-text);
+    }
+
+    .option-item.wrong .option-key {
+      background: var(--wrong-border);
+      color: #fff;
+    }
+
+    .option-item:disabled {
+      cursor: default;
+    }
+
+    /* Explanation Box */
+    .explanation-box {
+      margin-top: 18px;
+      padding: 15px 18px;
+      border-radius: 9px;
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      font-size: 0.94rem;
+      color: #334155;
+      display: none;
+    }
+
+    .explanation-box.visible {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .exp-header {
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .exp-header.is-correct {
+      color: var(--correct-text);
+    }
+
+    .exp-header.is-wrong {
+      color: var(--wrong-text);
+    }
+
+    /* Bottom Navigation Buttons */
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Score Summary Modal / Card */
+    .result-banner {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 2px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .result-banner.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .score-circle {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.1;
+      margin: 6px 0;
+    }
+
+    .result-feedback {
+      font-size: 1.02rem;
+      color: #78350f;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    /* Study Notes Footer */
+    .study-tip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-top: 24px;
+      box-shadow: var(--shadow);
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+    }
+
+    .study-tip strong {
+      color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .question-card {
+        padding: 18px 15px;
+      }
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .mode-switch {
+        justify-content: center;
+      }
+      .status-group {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <a class="nav-home" href="index.html">← 返回试题目录</a>
+    <div class="hero-badge">WESTMINSTER CONFESSION OF FAITH (1647)</div>
+    <h1>《威斯敏斯特信条》第二章“论上帝和三位一体”在线测试</h1>
+    <p>10 道精选测试题 · 对应信条 2.1–2.3 条：上帝的存有与完全、自足与主权、无误的知识，以及三位一体的位格与永恒关系</p>
+  </header>
+
+  <main class="container">
+    <!-- Top Controls -->
+    <section class="toolbar">
+      <div class="mode-switch" role="tablist" aria-label="答题模式">
+        <button class="mode-btn active" id="modePracticeBtn" onclick="setMode('practice')">练习模式（即时解析）</button>
+        <button class="mode-btn" id="modeExamBtn" onclick="setMode('exam')">考试模式（交卷评分）</button>
+      </div>
+
+      <div class="status-group">
+        <div class="stat-pill">已答：<span id="answeredCount">0</span> / 10</div>
+        <div class="stat-pill" id="liveScorePill">正确率：<span id="accuracyText">--</span></div>
+        <div class="view-switch">
+          <button class="btn-outline" id="toggleViewBtn" onclick="toggleLayoutView()">切换为整卷浏览</button>
+          <button class="btn-outline" onclick="resetQuiz()">重新作答</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Score Result Banner -->
+    <section class="result-banner" id="resultBanner">
+      <div style="font-size:0.9rem;color:#92400e;font-weight:600;">测试成绩单</div>
+      <div class="score-circle" id="finalScoreText">100 分</div>
+      <div class="result-feedback" id="finalFeedbackText"></div>
+      <div class="filter-bar">
+        <button class="btn-outline" onclick="filterReview('all')">查看全部 (10)</button>
+        <button class="btn-outline" onclick="filterReview('wrong')">仅看错题 (<span id="wrongCountBtn">0</span>)</button>
+        <button class="btn-outline" onclick="resetQuiz()">再测一次</button>
+      </div>
+    </section>
+
+    <!-- Question Number Navigator -->
+    <section class="nav-panel">
+      <div class="nav-panel-header">
+        <span>题号导航（点击可快速跳转，支持键盘 A/B/C/D 与左右方向键）</span>
+        <span id="examSubmitWrap" style="display:none;">
+          <button class="btn-primary" style="padding:5px 14px;font-size:0.84rem;" onclick="submitExam()">提交试卷</button>
+        </span>
+      </div>
+      <div class="nav-grid" id="navGrid"></div>
+    </section>
+
+    <!-- Questions Container -->
+    <section id="questionsContainer"></section>
+
+    <!-- Study Suggestion Footer -->
+    <aside class="study-tip">
+      💡 <strong>学习建议与提示：</strong>
+      这10道测试题覆盖《威斯敏斯特信条》第二章（2.1–2.3条）关于上帝的<strong>存有与完全、至纯之灵、无限与不变、旨意与荣耀、怜悯与公义、自足、无误的知识、万有的根源与主权，以及三位一体的位格与永恒关系</strong>等核心神学要点。可以在您的学习小组中作为预习测试或复习巩固的工具！
+    </aside>
+  </main>
+
+  <script>
+    const QUESTIONS = [
+      {
+        id: 1,
+        section: "信条 2.1 · 上帝是至纯之灵",
+        question: "某信徒认为：“圣经既然说上帝‘伸出膀臂’‘眼目察看’‘后悔造人’，可见上帝也有身体和会变化的情感。”下列哪项最准确地反映2.1条对上帝属性的教导？",
+        options: {
+          A: "上帝确有身体、四肢，只是比人更荣耀完美。",
+          B: "上帝是至纯之灵，不可见、无身体、无四肢、无人类情感；经文中身体性的表述是俯就人类语言的比喻。",
+          C: "上帝没有身体，但祂的情感会随受造物而改变。",
+          D: "上帝既是灵，就既不认识世界，也不介入世界。"
+        },
+        answer: "B",
+        explanation: "信条2.1条定义上帝为“至纯之灵，不可见、无身体、无四肢、无人类情感”，并宣告祂“不变”。经文中“伸膀臂”“眼目”等表达是上帝俯就人的语言，并非指上帝有肉体或会改变的情绪。"
+      },
+      {
+        id: 2,
+        section: "信条 2.1 · 无限与不变",
+        question: "有人提出：“上帝并非无限，而是会随着历史演进而成长、改变和衰老的。”下列哪项符合2.1条的教导？",
+        options: {
+          A: "上帝在其存有和完全上都是无限的，且是不变的。",
+          B: "上帝无限，但会随时代而改变。",
+          C: "上帝会改变，但不会衰老。",
+          D: "上帝在存有上有限，只在慈爱上无限。"
+        },
+        answer: "A",
+        explanation: "信条2.1条宣告上帝“在其存有和完全上都是无限的”，并且“不变、无量、永恒、不可测度”，祂的存有和属性绝不随时间增减或改变。"
+      },
+      {
+        id: 3,
+        section: "信条 2.1 · 旨意与荣耀",
+        question: "一种观点认为：宇宙的终极目的是人的幸福，上帝行作万事只是为满足人，而非为祂自己的荣耀。下列哪项符合2.1条？",
+        options: {
+          A: "上帝按照自己不改变和至公义的旨意行作万事，为的是荣耀祂自己。",
+          B: "上帝的旨意可随人的意志而改变，其目的是人的幸福。",
+          C: "上帝并不掌管万事，只是旁观历史的发展。",
+          D: "上帝最绝对，所以祂的行事不受自己旨意的约束。"
+        },
+        answer: "A",
+        explanation: "信条2.1条指出，上帝“最自由、最绝对”，祂“按照自己不改变和至公义的旨意行作万事，为的是荣耀祂自己”。万事的终极目的乃是上帝的荣耀。"
+      },
+      {
+        id: 4,
+        section: "信条 2.1 · 怜悯与公义并存",
+        question: "有人以为上帝的怜悯意味着祂最终不会真正追讨任何罪，会“以有罪为无罪”。下列哪项符合2.1条？",
+        options: {
+          A: "上帝最慈爱，赦免罪孽、过犯和罪恶；同时祂的审判最为公义、极其可畏，憎恶诸恶，断不以有罪的为无罪。",
+          B: "上帝只彰显慈爱，不再施行公义的审判。",
+          C: "上帝只彰显公义，毫无怜悯与赦免。",
+          D: "上帝对善恶漠不关心，任凭人自行其是。"
+        },
+        answer: "A",
+        explanation: "信条2.1条既宣告上帝“赦免罪孽、过犯和罪恶”，又宣告祂“的审判最为公义，极其可畏；祂憎恶诸恶，断不以有罪的为无罪”。祂的怜悯与公义并存不悖。"
+      },
+      {
+        id: 5,
+        section: "信条 2.1 · 慈爱与赏赐寻求者",
+        question: "有人形容上帝是“吝啬、严苛、不愿赏赐寻求祂之人”的存在。下列哪项符合2.1条？",
+        options: {
+          A: "上帝最慈爱，有恩典、有怜悯、恒久忍耐，有丰盛的良善和信实，并赏赐那殷勤寻求祂的。",
+          B: "上帝虽公义，却不愿人亲近祂。",
+          C: "上帝只赏赐完全无罪之人，对罪人毫无恩慈。",
+          D: "上帝恒久忍耐，所以从不追究任何罪。"
+        },
+        answer: "A",
+        explanation: "信条2.1条描述上帝“最慈爱，有恩典，有怜悯，恒久忍耐，有丰盛的良善和信实……祂赏赐那殷勤寻求祂的”，显明祂乐意施恩给亲近祂的人。"
+      },
+      {
+        id: 6,
+        section: "信条 2.2 · 上帝的自足",
+        question: "有人主张：“上帝创造世界，是因为祂感到孤单、缺少荣耀，需要受造物来补足自己。”下列哪项符合2.2条？",
+        options: {
+          A: "上帝本乎自己、因着自己拥有一切生命、荣耀、良善和福分；惟独祂完全自足，不需要所造的受造物，也不从他们获取任何荣耀。",
+          B: "上帝需要受造物才能得着荣耀与满足。",
+          C: "上帝因孤单而创造，为要与受造物作伴。",
+          D: "上帝把一部分荣耀分给受造物，自己因而减少。"
+        },
+        answer: "A",
+        explanation: "信条2.2条指出，上帝“本乎自己，也因着自己，拥有一切生命、荣耀、良善和福分；惟独祂本乎自己，并对自己而言是完全自足的，不需要祂所造的任何受造之物，也不从他们获取任何荣耀”。"
+      },
+      {
+        id: 7,
+        section: "信条 2.2 · 上帝无误的知识",
+        question: "有人宣称：“上帝并不确知未来的事，许多事对祂而言是偶发、不确定的。”下列哪项符合2.2条？",
+        options: {
+          A: "万有在祂眼前都是赤露敞开的；祂的知识是无限的、无谬误的、不依赖任何受造物；对祂而言没有什么事物是偶发或不确定的。",
+          B: "上帝的知识虽然广博，却会随受造物而增减。",
+          C: "未来对上帝而言同样是未知和偶然的。",
+          D: "上帝要靠观察历史来学习将要发生的事。"
+        },
+        answer: "A",
+        explanation: "信条2.2条宣告：“万有在祂眼前都是赤露敞开的；祂的知识是无限的，无谬误的，不依赖任何受造物；所以，对于祂而言，没有什么事物是偶发的，或不确定的。”"
+      },
+      {
+        id: 8,
+        section: "信条 2.2 · 万有的根源与主权",
+        question: "有人以为受造物独立于上帝，上帝只作“第一推动力”，之后便不再掌管。下列哪项最符合2.2条？",
+        options: {
+          A: "上帝是万有惟一的根源，万有都是本于祂、依靠祂、归于祂；祂对受造物有至高的统治权，藉着他们、为着他们、在他们身上行祂自己所喜悦的事。",
+          B: "上帝创造之后便不再护理掌管世界。",
+          C: "受造物独立运作，上帝不能干预。",
+          D: "上帝只是众多根源中的一个。"
+        },
+        answer: "A",
+        explanation: "信条2.2条指出：“祂是万有惟一的根源，万有都是本于祂，依靠祂，归于祂；祂对他们有至高的统治权，藉着他们，为着他们，并在他们身上行祂自己所喜悦的事。”"
+      },
+      {
+        id: 9,
+        section: "信条 2.3 · 三位格、同一本质",
+        question: "有人主张：“圣父、圣子、圣灵只是同一位上帝在不同时代的三种角色或显现（形态论）。”下列哪项符合2.3条？",
+        options: {
+          A: "在上帝的纯一中有三个位格，即圣父上帝、圣子上帝、圣灵上帝，同实质、同权能、同永恒。",
+          B: "只有一位格，只是在不同阶段以三种角色显现。",
+          C: "三个位格地位不同、本质也不同，圣父高于圣子和圣灵。",
+          D: "三位格只是人心中的三种观念，并无真实区分。"
+        },
+        answer: "A",
+        explanation: "信条2.3条宣告：“在上帝的纯一中有三个位格，即圣父上帝，圣子上帝，圣灵上帝，同实质、同权能、同永恒。”三个位格是真实的区分，却同具一个神圣本质。"
+      },
+      {
+        id: 10,
+        section: "信条 2.3 · 位格的永恒关系",
+        question: "关于三个位格之间的关系，下列哪项符合2.3条？",
+        options: {
+          A: "圣父既非受生、亦非被发出；圣子在永恒中为父所生；圣灵在永恒中由父和子发出。",
+          B: "圣父为父所生，圣子由圣灵发出。",
+          C: "三个位格在时间中依次产生，圣子、圣灵比圣父晚存在。",
+          D: "圣灵由圣子单独所生，与圣父无关。"
+        },
+        answer: "A",
+        explanation: "信条2.3条指出：“圣父既非受生，亦非被发出；圣子在永恒中为父所生；圣灵在永恒中由父和子发出。”这些关系都是永恒的，并非在时间中发生。"
+      }
+    ];
+
+    let state = {
+      mode: "practice",       // 'practice' | 'exam'
+      singleView: true,       // true: one question at a time, false: full list
+      currentIndex: 0,
+      userAnswers: {},        // { [questionId]: 'A' | 'B' | 'C' | 'D' }
+      examSubmitted: false,
+      reviewFilter: "all"     // 'all' | 'wrong'
+    };
+
+    function renderAll() {
+      renderToolbarStats();
+      renderNavGrid();
+      renderQuestions();
+      renderResultBanner();
+    }
+
+    function renderToolbarStats() {
+      const answeredKeys = Object.keys(state.userAnswers);
+      const answeredCount = answeredKeys.length;
+      document.getElementById("answeredCount").textContent = answeredCount;
+
+      const pct = Math.round((answeredCount / QUESTIONS.length) * 100);
+      document.getElementById("progressBar").style.width = pct + "%";
+
+      const accuracyEl = document.getElementById("accuracyText");
+      if (state.mode === "practice" || state.examSubmitted) {
+        if (answeredCount === 0) {
+          accuracyEl.textContent = "--";
+        } else {
+          let correct = 0;
+          answeredKeys.forEach(id => {
+            const q = QUESTIONS.find(item => item.id === Number(id));
+            if (q && state.userAnswers[id] === q.answer) correct++;
+          });
+          const denom = state.examSubmitted ? QUESTIONS.length : answeredCount;
+          accuracyEl.textContent = Math.round((correct / denom) * 100) + "% (" + correct + "/" + denom + ")";
+        }
+      } else {
+        accuracyEl.textContent = "交卷后揭晓";
+      }
+
+      document.getElementById("modePracticeBtn").classList.toggle("active", state.mode === "practice");
+      document.getElementById("modeExamBtn").classList.toggle("active", state.mode === "exam");
+      document.getElementById("toggleViewBtn").textContent = state.singleView ? "切换为整卷浏览" : "切换为逐题作答";
+      document.getElementById("examSubmitWrap").style.display =
+        state.mode === "exam" && !state.examSubmitted ? "inline-block" : "none";
+    }
+
+    function renderNavGrid() {
+      const grid = document.getElementById("navGrid");
+      grid.innerHTML = "";
+      QUESTIONS.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "nav-dot";
+        btn.textContent = q.id;
+
+        if (state.singleView && idx === state.currentIndex) {
+          btn.classList.add("current");
+        }
+
+        const picked = state.userAnswers[q.id];
+        const showJudgement = state.mode === "practice" || state.examSubmitted;
+
+        if (picked) {
+          if (showJudgement) {
+            btn.classList.add(picked === q.answer ? "correct" : "wrong");
+          } else {
+            btn.classList.add("answered");
+          }
+        } else if (state.examSubmitted) {
+          btn.classList.add("wrong");
+        }
+
+        btn.onclick = () => {
+          state.reviewFilter = "all";
+          if (state.singleView) {
+            state.currentIndex = idx;
+            renderAll();
+          } else {
+            const card = document.getElementById("q-card-" + q.id);
+            if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        };
+
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      let listToRender = QUESTIONS;
+      if (!state.singleView && state.reviewFilter === "wrong") {
+        listToRender = QUESTIONS.filter(q => state.userAnswers[q.id] !== q.answer);
+      } else if (state.singleView) {
+        listToRender = [QUESTIONS[state.currentIndex]];
+      }
+
+      if (listToRender.length === 0) {
+        container.innerHTML = `
+          <div class="question-card" style="text-align:center;padding:40px 20px;">
+            <p style="font-size:1.1rem;font-weight:600;color:var(--correct-text);">太棒了！当前没有错题记录。</p>
+            <button class="btn-outline" style="margin-top:12px;" onclick="filterReview('all')">返回查看全部题目</button>
+          </div>
+        `;
+        return;
+      }
+
+      listToRender.forEach(q => {
+        const picked = state.userAnswers[q.id];
+        const reveal = (state.mode === "practice" && !!picked) || state.examSubmitted;
+
+        const card = document.createElement("article");
+        card.className = "question-card";
+        card.id = "q-card-" + q.id;
+
+        let optionsHtml = "";
+        ["A", "B", "C", "D"].forEach(key => {
+          let cls = "option-item";
+          if (reveal) {
+            if (key === q.answer) cls += " correct";
+            else if (picked === key && key !== q.answer) cls += " wrong";
+          } else if (picked === key) {
+            cls += " selected";
+          }
+
+          const disabledAttr = (state.mode === "practice" && !!picked) || state.examSubmitted ? "disabled" : "";
+          optionsHtml += `
+            <button class="${cls}" ${disabledAttr} onclick="selectOption(${q.id}, '${key}')">
+              <span class="option-key">${key}</span>
+              <span>${q.options[key]}</span>
+            </button>
+          `;
+        });
+
+        const isCorrect = picked === q.answer;
+        const statusTitle = isCorrect
+          ? `✓ 回答正确（正确答案：${q.answer}）`
+          : `✗ ${picked ? "回答有误，您选择了 " + picked : "本题未作答"}（正确答案：${q.answer}）`;
+
+        let footerNavHtml = "";
+        if (state.singleView) {
+          const prevDisabled = state.currentIndex === 0 ? "disabled" : "";
+          const isLast = state.currentIndex === QUESTIONS.length - 1;
+          let rightButtonHtml = "";
+
+          if (state.mode === "exam" && !state.examSubmitted && isLast) {
+            rightButtonHtml = `<button class="btn-primary" onclick="submitExam()">提交试卷并查看解析</button>`;
+          } else {
+            const nextDisabled = isLast ? "disabled" : "";
+            rightButtonHtml = `<button class="btn-primary" ${nextDisabled} onclick="goStep(1)">下一题 →</button>`;
+          }
+
+          footerNavHtml = `
+            <div class="card-actions">
+              <button class="btn-outline" ${prevDisabled} onclick="goStep(-1)">← 上一题</button>
+              <span style="font-size:0.86rem;color:var(--text-muted);">第 ${q.id} / ${QUESTIONS.length} 题</span>
+              ${rightButtonHtml}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="q-meta">
+            <span class="q-number">第 ${q.id} 题</span>
+            <span class="q-tag">${q.section}</span>
+          </div>
+          <h2 class="q-title">${q.question}</h2>
+          <div class="options-list">
+            ${optionsHtml}
+          </div>
+          <div class="explanation-box ${reveal ? "visible" : ""}">
+            <div class="exp-header ${isCorrect ? "is-correct" : "is-wrong"}">${statusTitle}</div>
+            <div><strong>神学解析：</strong>${q.explanation}</div>
+          </div>
+          ${footerNavHtml}
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function renderResultBanner() {
+      const banner = document.getElementById("resultBanner");
+      const allAnsweredInPractice =
+        state.mode === "practice" && Object.keys(state.userAnswers).length === QUESTIONS.length;
+
+      if (!state.examSubmitted && !allAnsweredInPractice) {
+        banner.classList.remove("visible");
+        return;
+      }
+
+      let correctCount = 0;
+      QUESTIONS.forEach(q => {
+        if (state.userAnswers[q.id] === q.answer) correctCount++;
+      });
+      const wrongCount = QUESTIONS.length - correctCount;
+      const score = correctCount * 10;
+
+      let feedback = "";
+      if (score >= 90) {
+        feedback = "卓越！您对《威斯敏斯特信条》第二章“论上帝和三位一体”的教义脉络与细节掌握得非常扎实！";
+      } else if (score >= 80) {
+        feedback = "良好！您已准确把握上帝论与三位一体的核心原则，可针对少量错题进一步巩固。";
+      } else if (score >= 60) {
+        feedback = "及格！建议对照信条 2.1–2.3 条原文与解析，重点复习容易混淆的教义概念。";
+      } else {
+        feedback = "建议仔细研读《威斯敏斯特信条》第二章条文及每道题下方的神学解析后再测一次。";
+      }
+
+      document.getElementById("finalScoreText").textContent = `${score} 分（答对 ${correctCount}/${QUESTIONS.length} 题）`;
+      document.getElementById("finalFeedbackText").textContent = feedback;
+      document.getElementById("wrongCountBtn").textContent = wrongCount;
+      banner.classList.add("visible");
+    }
+
+    function selectOption(questionId, optionKey) {
+      if (state.examSubmitted) return;
+      if (state.mode === "practice" && state.userAnswers[questionId]) return;
+
+      state.userAnswers[questionId] = optionKey;
+      renderAll();
+
+      // In exam mode + single question view, auto-advance briefly if not on last question
+      if (state.mode === "exam" && state.singleView && state.currentIndex < QUESTIONS.length - 1) {
+        setTimeout(() => {
+          if (state.mode === "exam" && !state.examSubmitted) {
+            state.currentIndex++;
+            renderAll();
+          }
+        }, 220);
+      }
+    }
+
+    function goStep(delta) {
+      const next = state.currentIndex + delta;
+      if (next >= 0 && next < QUESTIONS.length) {
+        state.currentIndex = next;
+        renderAll();
+      }
+    }
+
+    function setMode(newMode) {
+      if (state.mode === newMode) return;
+      state.mode = newMode;
+      state.examSubmitted = false;
+      state.reviewFilter = "all";
+      renderAll();
+    }
+
+    function toggleLayoutView() {
+      state.singleView = !state.singleView;
+      renderAll();
+    }
+
+    function submitExam() {
+      const answeredCount = Object.keys(state.userAnswers).length;
+      if (answeredCount < QUESTIONS.length) {
+        const unAnswered = QUESTIONS.length - answeredCount;
+        if (!confirm(`您还有 ${unAnswered} 道题尚未作答，确定现在交卷吗？`)) {
+          return;
+        }
+      }
+      state.examSubmitted = true;
+      state.singleView = false;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function filterReview(type) {
+      state.singleView = false;
+      state.reviewFilter = type;
+      renderAll();
+    }
+
+    function resetQuiz() {
+      state.userAnswers = {};
+      state.currentIndex = 0;
+      state.examSubmitted = false;
+      state.reviewFilter = "all";
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Keyboard shortcuts support
+    window.addEventListener("keydown", e => {
+      if (!state.singleView) return;
+      const currentQ = QUESTIONS[state.currentIndex];
+      const key = e.key.toUpperCase();
+      if (["A", "B", "C", "D"].includes(key)) {
+        selectOption(currentQ.id, key);
+      } else if (e.key === "ArrowRight") {
+        goStep(1);
+      } else if (e.key === "ArrowLeft") {
+        goStep(-1);
+      }
+    });
+
+    // Initialize
+    renderAll();
+  </script>
+</body>
+</html>
