@@ -11,6 +11,7 @@
   <title>《威斯敏斯特信条》在线测试</title>
   <link rel="stylesheet" href="app.css" />
   <script src="app.js"></script>
+  <script src="chapters.js"></script>
 </head>
 <body>
 
@@ -22,66 +23,74 @@
 
   <main class="app-main">
     <div class="page-head">
-      <h1>在线测试</h1>
-      <p>按章编排的单项选择题，用于学习小组的预习测试与复习巩固。</p>
+      <h1>试题目录</h1>
+      <p id="listSummary">共 33 章</p>
     </div>
 
-    <div class="section-label">📖 试题目录</div>
+    <div style="margin-bottom:12px;">
+      <input id="chapterFilter" class="filter-input" type="text" placeholder="搜索章节（如：圣经 / 三位一体）" oninput="renderChapters()" />
+    </div>
 
-    <div class="chapter-list">
-      <a class="chapter-card" href="chapter1.html">
-        <span class="tag chip brand">第一章</span>
-        <h2>论圣经</h2>
-        <p>圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者。</p>
-        <div class="meta-chips">
-          <span class="chip">10 道题</span>
-          <span class="chip">每题 10 分</span>
-          <span class="chip">练习 / 考试</span>
-        </div>
-        <span class="card-cta">开始答题 →</span>
-      </a>
+    <div class="section-label">📖 章节列表</div>
+    <div class="chapter-list" id="chapterList"></div>
 
-      <a class="chapter-card" href="chapter2.html">
-        <span class="tag chip brand">第二章</span>
-        <h2>论上帝和三位一体</h2>
-        <p>上帝的存有与完全、至纯之灵、无限与不变、旨意与荣耀、怜悯与公义、自足、无误的知识、万有的根源与主权，以及三位一体的位格与永恒关系。</p>
-        <div class="meta-chips">
-          <span class="chip">10 道题</span>
-          <span class="chip">每题 10 分</span>
-          <span class="chip">练习 / 考试</span>
-        </div>
-        <span class="card-cta">开始答题 →</span>
-      </a>
-
-      <a class="chapter-card" href="records.html">
-        <span class="tag chip brand">统计</span>
-        <h2>我的记录 / 错题集</h2>
-        <p>本机保存的考试成绩、个人错题集与本机成绩榜。数据仅保存在当前浏览器中。</p>
-        <div class="meta-chips">
-          <span class="chip">成绩记录</span>
-          <span class="chip">个人错题集</span>
-          <span class="chip">本机成绩榜</span>
-        </div>
-        <span class="card-cta">查看记录 →</span>
-      </a>
-
-      <div class="chapter-card coming">
-        <span class="tag chip">后续章节</span>
-        <h2>更多章节陆续推出</h2>
-        <p>《威斯敏斯特信条》其余各章的测试题将陆续补充上线，敬请期待。</p>
-        <div class="meta-chips">
-          <span class="chip">敬请期待</span>
-        </div>
+    <a class="chapter-row" href="records.html" style="margin-top:14px;">
+      <div class="num" style="background:linear-gradient(135deg,#1e293b,#334155);">👤</div>
+      <div class="info">
+        <h3>我的记录 / 错题集</h3>
+        <p>成绩记录、个人错题集、本机成绩榜</p>
       </div>
-    </div>
+      <div class="go">›</div>
+    </a>
   </main>
 
   <nav class="tabbar">
     <a class="tab-item" href="index.html"><span class="ico">🏠</span>目录</a>
-    <a class="tab-item" href="chapter1.html"><span class="ico">📖</span>第一章</a>
-    <a class="tab-item" href="chapter2.html"><span class="ico">📜</span>第二章</a>
+    <a class="tab-item" id="tabContinue" href="chapter1.html"><span class="ico">▶</span>继续</a>
     <a class="tab-item" href="records.html"><span class="ico">👤</span>我的</a>
   </nav>
 
+  <script>
+    function renderChapters() {
+      const kw = (document.getElementById("chapterFilter").value || "").trim().toLowerCase();
+      const list = document.getElementById("chapterList");
+      const all = window.WCF_CHAPTERS || [];
+      const items = all.filter(c => {
+        if (!kw) return true;
+        const hay = (String(c.num) + " " + (c.title || "") + " " + (c.desc || "")).toLowerCase();
+        return hay.indexOf(kw) !== -1;
+      });
+
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">未找到匹配的章节</div>';
+        return;
+      }
+
+      let html = "";
+      items.forEach(c => {
+        const disabled = !c.ready;
+        const inner =
+          '<div class="num">' + c.num + '</div>' +
+          '<div class="info">' +
+            '<h3>' + c.title + (c.ready ? '' : ' <span class="chip">待上线</span>') + '</h3>' +
+            (c.desc ? '<p>' + c.desc + '</p>' : '') +
+          '</div>' +
+          (c.ready ? '<div class="go">›</div>' : '');
+
+        html += disabled
+          ? '<div class="chapter-row disabled">' + inner + '</div>'
+          : '<a class="chapter-row" href="' + c.id + '.html">' + inner + '</a>';
+      });
+      list.innerHTML = html;
+    }
+
+    (function init() {
+      const all = window.WCF_CHAPTERS || [];
+      const ready = all.filter(c => c.ready).length;
+      const el = document.getElementById("listSummary");
+      if (el) el.textContent = `共 ${all.length} 章 · 已上线 ${ready} 章`;
+      renderChapters();
+    })();
+  </script>
 </body>
 </html>
