@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的记录 / 错题集 · 《威斯敏斯特信条》在线测试</title>
+  <script src="app.js"></script>
+  <style>
+    :root {
+      --bg-primary: #f6f3ec;
+      --bg-card: #ffffff;
+      --bg-subtle: #efeae0;
+      --text-primary: #1f242d;
+      --text-secondary: #545b67;
+      --text-muted: #7b818c;
+      --accent: #7c2d12;
+      --accent-hover: #9a3412;
+      --border: #dfd8c8;
+      --correct-bg: #ecfdf5;
+      --correct-border: #10b981;
+      --correct-text: #065f46;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #ef4444;
+      --wrong-text: #991b1b;
+      --shadow: 0 4px 20px rgba(31, 36, 45, 0.06);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Noto Serif SC", "Microsoft YaHei", "Source Han Serif SC", serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      padding-bottom: 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #271c19 0%, #431407 55%, #1e293b 100%);
+      color: #f8fafc;
+      padding: 36px 20px 30px;
+      text-align: center;
+      border-bottom: 4px solid #d97706;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .nav-home {
+      display: inline-block;
+      color: #fcd34d;
+      text-decoration: none;
+      font-size: 0.85rem;
+      border: 1px solid rgba(252, 211, 77, 0.4);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      transition: background 0.2s;
+    }
+
+    .nav-home:hover { background: rgba(245, 158, 11, 0.22); }
+
+    .hero h1 { font-size: clamp(1.45rem, 3vw, 2.1rem); font-weight: 700; margin-bottom: 8px; }
+    .hero p { color: #cbd5e1; font-size: 0.96rem; max-width: 680px; margin: 0 auto; }
+
+    .container { max-width: 900px; margin: -18px auto 0; padding: 0 16px; }
+
+    .bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .name-field {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .name-field input {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      outline: none;
+      width: 150px;
+    }
+
+    .name-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(124, 45, 18, 0.12); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger:hover { border-color: var(--wrong-border); color: var(--wrong-border); }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .card > h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: var(--bg-subtle);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat .num { font-size: 1.7rem; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .stat .lbl { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-secondary); font-size: 0.84rem; font-weight: 700; }
+    td.score { font-weight: 700; color: var(--accent); }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    .tag.gold { background: #fef3c7; color: #92400e; }
+    .tag.me { background: #ffedd5; color: var(--accent); font-weight: 700; }
+
+    .wrong-item {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--wrong-border);
+      border-radius: 9px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+
+    .wrong-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .wrong-head .q-title { font-weight: 700; }
+    .wrong-q { font-size: 0.98rem; margin: 6px 0 10px; }
+    .ans-line { font-size: 0.9rem; margin: 3px 0; }
+    .ans-line .k { display: inline-block; min-width: 68px; color: var(--text-muted); }
+    .ans-picked { color: var(--wrong-text); font-weight: 600; }
+    .ans-correct { color: var(--correct-text); font-weight: 600; }
+    .explain {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 24px 10px;
+      font-size: 0.95rem;
+    }
+
+    .hint {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 18px 15px; }
+      .bar { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <a class="nav-home" href="index.html">← 返回试题目录</a>
+    <div class="hero-badge">WESTMINSTER CONFESSION OF FAITH (1647)</div>
+    <h1>我的记录 / 错题集</h1>
+    <p>本页数据仅保存在<strong>当前浏览器</strong>（localStorage）中，换设备或清除浏览器数据后将丢失</p>
+  </header>
+
+  <main class="container">
+    <section class="bar">
+      <label class="name-field">我的姓名
+        <input id="nameInput" type="text" placeholder="请输入姓名" />
+      </label>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn-outline" onclick="refresh()">刷新</button>
+        <button class="btn-outline btn-danger" onclick="clearAll()">清空本机记录</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>👤 个人概况</h2>
+      <div class="stats" id="personalStats"></div>
+      <div class="hint" id="personalHint"></div>
+    </section>
+
+    <section class="card">
+      <h2>📝 我的考试记录</h2>
+      <div id="historyWrap"></div>
+    </section>
+
+    <section class="card">
+      <h2>❌ 我的错题集</h2>
+      <div id="wrongWrap"></div>
+    </section>
+
+    <section class="card">
+      <h2>🏆 本机成绩榜</h2>
+      <div id="boardWrap"></div>
+      <div class="hint">此排行榜仅统计<strong>本机本浏览器</strong>记录过的考生姓名，并非全员排名（全员排名需要云端数据库支持）。</div>
+    </section>
+  </main>
+
+  <script>
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        const p = n => String(n).padStart(2, "0");
+        return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) +
+          " " + p(d.getHours()) + ":" + p(d.getMinutes());
+      } catch (e) { return iso; }
+    }
+
+    function currentName() {
+      return (WCF.getName() || "").trim();
+    }
+
+    function renderPersonal(records) {
+      const name = currentName();
+      const box = document.getElementById("personalStats");
+      const hint = document.getElementById("personalHint");
+
+      if (!name) {
+        box.innerHTML = `<div class="stat"><div class="num">--</div><div class="lbl">尚未录入姓名</div></div>`;
+        hint.textContent = "请在上方输入你的姓名，然后到任一章节完成测试，即可记录成绩与错题。";
+        return;
+      }
+
+      const mine = records.filter(r => (r.name || "") === name);
+      const attempts = mine.length;
+      const best = attempts ? Math.max.apply(null, mine.map(r => r.score || 0)) : 0;
+      const avg = attempts ? Math.round(mine.reduce((s, r) => s + (r.score || 0), 0) / attempts) : 0;
+
+      box.innerHTML =
+        `<div class="stat"><div class="num">${attempts}</div><div class="lbl">考试次数</div></div>` +
+        `<div class="stat"><div class="num">${best}</div><div class="lbl">最高分</div></div>` +
+        `<div class="stat"><div class="num">${avg}</div><div class="lbl">平均分</div></div>`;
+
+      hint.textContent = attempts
+        ? `以上统计基于本机保存的「${name}」的记录。`
+        : `本机尚未保存「${name}」的考试记录，请到章节页面完成一次测试（考试模式交卷或练习模式答完）后返回刷新。`;
+    }
+
+    function renderHistory(records) {
+      const name = currentName();
+      const wrap = document.getElementById("historyWrap");
+      const mine = name
+        ? records.filter(r => (r.name || "") === name).slice().reverse()
+        : [];
+
+      if (!mine.length) {
+        wrap.innerHTML = `<div class="empty">暂无考试记录</div>`;
+        return;
+      }
+
+      let rows = "";
+      mine.forEach(r => {
+        rows += `<tr>
+          <td>${fmtDate(r.date)}</td>
+          <td>${escapeHtml(r.chapterLabel || r.chapterId || "")}</td>
+          <td class="score">${r.score} 分</td>
+          <td>${r.correct}/${r.total}</td>
+          <td>${(r.wrongItems && r.wrongItems.length) || 0} 题</td>
+        </tr>`;
+      });
+
+      wrap.innerHTML = `<table>
+        <thead><tr><th>时间</th><th>章节</th><th>得分</th><th>答对</th><th>错题</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    }
+
+    function renderWrong(records) {
+      const name = currentName();
+      const wrap = document.getElementById("wrongWrap");
+      const mine = name ? records.filter(r => (r.name || "") === name) : [];
+
+      const map = {};
+      mine.forEach(r => {
+        (r.wrongItems || []).forEach(w => {
+          const key = (r.chapterId || "") + "#" + w.id;
+          if (!map[key]) {
+            map[key] = {
+              chapterLabel: r.chapterLabel || r.chapterId || "",
+              item: w,
+              count: 0,
+              lastPicked: w.picked
+            };
+          }
+          map[key].count += 1;
+          map[key].lastPicked = w.picked;
+          map[key].item = w;
+        });
+      });
+
+      const keys = Object.keys(map);
+      if (!keys.length) {
+        wrap.innerHTML = `<div class="empty">${name ? "太棒了！目前没有错题记录。" : "请先录入姓名。"}</div>`;
+        return;
+      }
+
+      keys.sort((a, b) => {
+        const ca = map[a].chapterLabel, cb = map[b].chapterLabel;
+        if (ca !== cb) return ca.localeCompare(cb);
+        return map[a].item.id - map[b].item.id;
+      });
+
+      let html = "";
+      keys.forEach(k => {
+        const entry = map[k];
+        const w = entry.item;
+        const pickedText = entry.lastPicked
+          ? `${entry.lastPicked}. ${escapeHtml((w.options || {})[entry.lastPicked] || "")}`
+          : "未作答";
+        const correctText = `${w.answer}. ${escapeHtml((w.options || {})[w.answer] || "")}`;
+
+        html += `<div class="wrong-item">
+          <div class="wrong-head">
+            <span class="tag">${escapeHtml(entry.chapterLabel)} · 第 ${w.id} 题</span>
+            <span class="tag gold">错误 ${entry.count} 次</span>
+          </div>
+          <div class="wrong-q">${escapeHtml(w.question)}</div>
+          <div class="ans-line"><span class="k">你的答案：</span><span class="ans-picked">${pickedText}</span></div>
+          <div class="ans-line"><span class="k">正确答案：</span><span class="ans-correct">${correctText}</span></div>
+          <div class="explain"><strong>解析：</strong>${escapeHtml(w.explanation)}</div>
+        </div>`;
+      });
+
+      wrap.innerHTML = html;
+    }
+
+    function renderBoard(records) {
+      const wrap = document.getElementById("boardWrap");
+      const name = currentName();
+      const agg = {};
+
+      records.forEach(r => {
+        const n = (r.name || "").trim() || "匿名";
+        if (!agg[n]) agg[n] = { attempts: 0, best: 0, total: 0 };
+        agg[n].attempts += 1;
+        agg[n].total += (r.score || 0);
+        agg[n].best = Math.max(agg[n].best, r.score || 0);
+      });
+
+      const names = Object.keys(agg);
+      if (!names.length) {
+        wrap.innerHTML = `<div class="empty">本机暂无任何成绩记录</div>`;
+        return;
+      }
+
+      names.sort((a, b) => agg[b].best - agg[a].best || agg[b].attempts - agg[a].attempts);
+
+      let rows = "";
+      names.forEach((n, i) => {
+        const a = agg[n];
+        const avg = Math.round(a.total / a.attempts);
+        const me = n === name;
+        rows += `<tr>
+          <td>${i + 1}</td>
+          <td>${escapeHtml(n)} ${me ? '<span class="tag me">我</span>' : ""}</td>
+          <td class="score">${a.best}</td>
+          <td>${avg}</td>
+          <td>${a.attempts}</td>
+        </tr>`;
+      });
+
+      wrap.innerHTML = `<table>
+        <thead><tr><th>名次</th><th>考生</th><th>最高分</th><th>平均分</th><th>次数</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+    }
+
+    function refresh() {
+      const records = WCF.getRecords();
+      renderPersonal(records);
+      renderHistory(records);
+      renderWrong(records);
+      renderBoard(records);
+    }
+
+    function clearAll() {
+      if (!confirm("确定清空本机保存的全部考试记录吗？此操作不可撤销。")) return;
+      WCF.clearAll();
+      refresh();
+    }
+
+    document.getElementById("nameInput").addEventListener("input", function () {
+      WCF.setName(this.value);
+      refresh();
+    });
+
+    (function init() {
+      document.getElementById("nameInput").value = currentName();
+      refresh();
+    })();
+  </script>
+</body>
+</html>
