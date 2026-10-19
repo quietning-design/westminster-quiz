@@ -325,7 +325,9 @@
     if (!shouldSave || !QUESTIONS.length) return;
     ensureName();
     state.recordSaved = true;
-    WCF.addRecord(buildRecord());
+    var rec = buildRecord();
+    WCF.addRecord(rec);
+    if (window.Cloud && Cloud.enabled) { Cloud.saveResult(rec); }
   }
 
   window.addEventListener("keydown", function (e) {
