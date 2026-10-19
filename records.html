@@ -8,8 +8,9 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>我的记录 / 错题集 · 威斯敏斯特信条在线测试</title>
-  <link rel="stylesheet" href="app.css" />
-  <script src="app.js"></script>
+  <link rel="stylesheet" href="app.css?v=3" />
+  <script src="app.js?v=3"></script>
+  <script src="cloud.js?v=1"></script>
 </head>
 <body>
 
@@ -25,7 +26,7 @@
         <label for="nameInput">我的姓名</label>
         <input id="nameInput" type="text" placeholder="请输入姓名" />
       </div>
-      <div class="hint" style="margin-top:10px;">数据仅保存在当前浏览器（localStorage）中，换设备或清除浏览器数据后会丢失。</div>
+      <div class="hint" style="margin-top:10px;">成绩会同步到云端数据库（跨设备可见），同时在本机保留一份备份。</div>
     </div>
 
     <section class="card">
@@ -45,9 +46,9 @@
     </section>
 
     <section class="card">
-      <h2>🏆 本机成绩榜</h2>
+      <h2>🏆 全员成绩排名</h2>
       <div id="boardWrap"></div>
-      <div class="hint">此榜仅统计<strong>本机本浏览器</strong>记录过的考生，并非全员排名（全员排名需云端数据库支持）。</div>
+      <div class="hint">按<strong>最高分</strong>排序，统计云端数据库中的全体考生（未联网时退回显示本机记录）。</div>
     </section>
   </main>
 
@@ -99,8 +100,8 @@
         `<div class="stat-box"><div class="num">${avg}</div><div class="lbl">平均分</div></div>`;
 
       hint.textContent = attempts
-        ? `以上统计基于本机保存的「${name}」的记录。`
-        : `本机尚未保存「${name}」的记录，请到章节页面完成一次测试（考试模式交卷或练习模式答完）后返回。`;
+        ? `以上统计基于「${name}」的全部记录（云端 + 本机）。`
+        : `尚未有「${name}」的记录，请到章节页面完成一次测试（考试模式交卷或练习模式答完）后返回。`;
     }
 
     function renderHistory(records) {
@@ -219,17 +220,29 @@
       wrap.innerHTML = html;
     }
 
-    function refresh() {
-      const records = WCF.getRecords();
+    let DATA = WCF.getRecords();
+
+    function renderAll(records) {
       renderPersonal(records);
       renderHistory(records);
       renderWrong(records);
       renderBoard(records);
     }
 
+    function refresh() {
+      renderAll(DATA);
+      if (window.Cloud && Cloud.enabled) {
+        Cloud.getMergedRecords().then(function (rs) {
+          DATA = rs || DATA;
+          renderAll(DATA);
+        }).catch(function () {});
+      }
+    }
+
     function clearAll() {
-      if (!confirm("确定清空本机保存的全部考试记录吗？此操作不可撤销。")) return;
+      if (!confirm("确定清空本机缓存的考试记录吗？云端记录不会被删除。")) return;
       WCF.clearAll();
+      DATA = [];
       refresh();
     }
 
