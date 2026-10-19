@@ -45,16 +45,20 @@
       <div id="wrongWrap"></div>
     </section>
 
-    <section class="card">
-      <h2>🏆 全员成绩排名</h2>
-      <div id="boardWrap"></div>
-      <div class="hint">按<strong>最高分</strong>排序，统计云端数据库中的全体考生（未联网时退回显示本机记录）。</div>
-    </section>
+    <a class="chapter-row" href="ranking.html" style="margin-bottom:14px;">
+      <div class="num" style="background:linear-gradient(135deg,#b45309,#7c2d12);">🏆</div>
+      <div class="info">
+        <h3>查看全员成绩排名</h3>
+        <p>按最高分排序，含所有考生的云端成绩</p>
+      </div>
+      <div class="go">›</div>
+    </a>
   </main>
 
   <nav class="tabbar">
     <a class="tab-item" href="index.html"><span class="ico">🏠</span>目录</a>
     <a class="tab-item" id="tabContinue" href="quiz.html?ch=1"><span class="ico">▶</span>继续</a>
+    <a class="tab-item" href="ranking.html"><span class="ico">🏆</span>排名</a>
     <a class="tab-item" href="records.html"><span class="ico">👤</span>我的</a>
   </nav>
 
@@ -226,7 +230,6 @@
       renderPersonal(records);
       renderHistory(records);
       renderWrong(records);
-      renderBoard(records);
     }
 
     function refresh() {
