@@ -528,12 +528,42 @@
         justify-content: space-between;
       }
     }
+    .name-field {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .name-field input {
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      outline: none;
+      width: 130px;
+    }
+
+    .name-field input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(124, 45, 18, 0.12);
+    }
   </style>
+  <script src="app.js"></script>
 </head>
 <body>
 
   <header class="hero">
     <a class="nav-home" href="index.html">← 返回试题目录</a>
+    <a class="nav-home" href="records.html" style="margin-left:8px;">我的记录 / 错题集</a>
     <div class="hero-badge">WESTMINSTER CONFESSION OF FAITH (1647)</div>
     <h1>《威斯敏斯特信条》第一章“论圣经”在线测试</h1>
     <p>10 道精选测试题 · 对应信条 1.1–1.10 条：圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者</p>
@@ -546,6 +576,10 @@
         <button class="mode-btn active" id="modePracticeBtn" onclick="setMode('practice')">练习模式（即时解析）</button>
         <button class="mode-btn" id="modeExamBtn" onclick="setMode('exam')">考试模式（交卷评分）</button>
       </div>
+
+      <label class="name-field">考生姓名
+        <input id="examineeName" type="text" placeholder="请输入姓名" oninput="onNameInput(this.value)" />
+      </label>
 
       <div class="status-group">
         <div class="stat-pill">已答：<span id="answeredCount">0</span> / 10</div>
@@ -734,6 +768,7 @@
       currentIndex: 0,
       userAnswers: {},        // { [questionId]: 'A' | 'B' | 'C' | 'D' }
       examSubmitted: false,
+      recordSaved: false,
       reviewFilter: "all"     // 'all' | 'wrong'
     };
 
@@ -951,6 +986,7 @@
 
       state.userAnswers[questionId] = optionKey;
       renderAll();
+      saveAttemptIfNeeded();
 
       // In exam mode + single question view, auto-advance briefly if not on last question
       if (state.mode === "exam" && state.singleView && state.currentIndex < QUESTIONS.length - 1) {
@@ -995,6 +1031,7 @@
       state.examSubmitted = true;
       state.singleView = false;
       renderAll();
+      saveAttemptIfNeeded();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -1008,6 +1045,7 @@
       state.userAnswers = {};
       state.currentIndex = 0;
       state.examSubmitted = false;
+      state.recordSaved = false;
       state.reviewFilter = "all";
       renderAll();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1026,6 +1064,72 @@
         goStep(-1);
       }
     });
+
+    // ===== 考生姓名与成绩记录（本机 localStorage） =====
+    function onNameInput(val) {
+      WCF.setName(val);
+    }
+
+    function ensureName() {
+      let name = (WCF.getName() || "").trim();
+      if (!name) {
+        const typed = window.prompt("请输入你的姓名（用于记录成绩与个人错题集）：", "");
+        if (typed !== null) {
+          name = typed.trim();
+          WCF.setName(name);
+          const input = document.getElementById("examineeName");
+          if (input) input.value = name;
+        }
+      }
+      return name || "匿名";
+    }
+
+    function buildRecord() {
+      let correct = 0;
+      const wrongItems = [];
+      QUESTIONS.forEach(q => {
+        const picked = state.userAnswers[q.id] || null;
+        if (picked === q.answer) {
+          correct++;
+        } else {
+          wrongItems.push({
+            id: q.id,
+            section: q.section,
+            question: q.question,
+            options: q.options,
+            answer: q.answer,
+            explanation: q.explanation,
+            picked: picked
+          });
+        }
+      });
+      return {
+        id: Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+        name: ensureName(),
+        chapterId: "ch1",
+        chapterLabel: "第一章 · 论圣经",
+        score: correct * 10,
+        correct: correct,
+        total: QUESTIONS.length,
+        date: new Date().toISOString(),
+        wrongItems: wrongItems
+      };
+    }
+
+    function saveAttemptIfNeeded() {
+      if (state.recordSaved) return;
+      const answeredAll = Object.keys(state.userAnswers).length === QUESTIONS.length;
+      const shouldSave = state.examSubmitted || (state.mode === "practice" && answeredAll);
+      if (!shouldSave) return;
+      ensureName();
+      state.recordSaved = true;
+      WCF.addRecord(buildRecord());
+    }
+
+    (function initExamineeName() {
+      const input = document.getElementById("examineeName");
+      if (input) input.value = WCF.getName() || "";
+    })();
 
     // Initialize
     renderAll();
