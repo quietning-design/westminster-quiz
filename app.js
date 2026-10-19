@@ -34,4 +34,14 @@
       try { localStorage.removeItem(RECORDS_KEY); } catch (e) {}
     }
   };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var path = (location.pathname.split("/").pop() || "").toLowerCase();
+    if (!path) path = "index.html";
+    var links = document.querySelectorAll(".tab-item");
+    for (var i = 0; i < links.length; i++) {
+      var href = (links[i].getAttribute("href") || "").toLowerCase();
+      if (href === path) links[i].classList.add("active");
+    }
+  });
 })();
