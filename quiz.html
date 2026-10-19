@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#431407" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>威斯敏斯特信条在线测试</title>
+  <link rel="stylesheet" href="app.css" />
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <header class="appbar">
+    <a class="appbar-btn" href="index.html" aria-label="返回目录">‹</a>
+    <div class="appbar-title">加载中…</div>
+    <a class="appbar-btn" href="records.html" aria-label="我的记录">👤</a>
+  </header>
+
+  <main class="app-main" id="quizShell">
+    <div class="page-head">
+      <h1 id="chapterCrumb">加载中…</h1>
+      <p>10 道单项选择题 · 每题 10 分</p>
+    </div>
+
+    <div class="card" style="padding:14px;">
+      <div class="segmented">
+        <button id="modePracticeBtn" class="active" onclick="WCFQuiz.setMode('practice')">练习模式</button>
+        <button id="modeExamBtn" onclick="WCFQuiz.setMode('exam')">考试模式</button>
+      </div>
+      <div class="field">
+        <label for="examineeName">考生姓名</label>
+        <input id="examineeName" type="text" placeholder="请输入姓名" oninput="WCFQuiz.onNameInput(this.value)" />
+      </div>
+    </div>
+
+    <div class="progress-sticky">
+      <div class="progress"><i id="progressBar"></i></div>
+      <div class="stat-line">
+        <span>已答 <b id="answeredCount">0</b> / 10</span>
+        <span id="liveScorePill">正确率 <b id="accuracyText">--</b></span>
+      </div>
+    </div>
+
+    <section class="result" id="resultBanner">
+      <div class="cap">测试成绩单</div>
+      <div class="score" id="finalScoreText">100 分</div>
+      <div class="fb" id="finalFeedbackText"></div>
+      <div class="row">
+        <button class="btn btn-sm btn-outline" onclick="WCFQuiz.filterReview('all')">查看全部</button>
+        <button class="btn btn-sm btn-outline" onclick="WCFQuiz.filterReview('wrong')">仅看错题 (<span id="wrongCountBtn">0</span>)</button>
+        <button class="btn btn-sm btn-outline" onclick="WCFQuiz.resetQuiz()">再测一次</button>
+      </div>
+    </section>
+
+    <section class="qnav-card">
+      <div class="qnav-head">
+        <span>题号导航</span>
+        <span id="examSubmitWrap" style="display:none;">
+          <button class="btn btn-sm btn-primary" onclick="WCFQuiz.submitExam()">提交试卷</button>
+        </span>
+      </div>
+      <div class="qnav" id="navGrid"></div>
+      <div class="stat-line" style="margin-top:12px;">
+        <button class="btn btn-sm btn-outline" id="toggleViewBtn" onclick="WCFQuiz.toggleLayoutView()">整卷浏览</button>
+        <button class="btn btn-sm btn-outline" onclick="WCFQuiz.resetQuiz()">重新作答</button>
+      </div>
+    </section>
+
+    <section id="questionsContainer"></section>
+
+    <aside class="card hint">
+      💡 支持键盘 <b>A / B / C / D</b> 选择答案，<b>← / →</b> 切换题目。练习模式选完即出解析；考试模式交卷后统一评分。成绩与错题保存在本机浏览器中。
+    </aside>
+  </main>
+
+  <nav class="tabbar">
+    <a class="tab-item" href="index.html"><span class="ico">🏠</span>目录</a>
+    <a class="tab-item" id="tabContinue" href="index.html"><span class="ico">▶</span>继续</a>
+    <a class="tab-item" href="records.html"><span class="ico">👤</span>我的</a>
+  </nav>
+
+  <script src="bank-01-02.js"></script>
+  <script src="bank-03-08.js"></script>
+  <script src="bank-09-14.js"></script>
+  <script src="bank-15-20.js"></script>
+  <script src="bank-21-26.js"></script>
+  <script src="bank-27-33.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>
