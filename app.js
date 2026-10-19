@@ -40,15 +40,17 @@
     if (!path) path = "index.html";
 
     var LAST_KEY = "wcf_last_chapter";
-    var isChapter = /^chapter\d+\.html$/.test(path);
+    var chParam = (new RegExp("[?&]ch=(\\d+)").exec(location.search) || [])[1];
+    var isChapter = /^chapter\d+\.html$/.test(path) || (path === "quiz.html" && !!chParam);
+    var continueUrl = (path === "quiz.html" && chParam) ? ("quiz.html?ch=" + chParam) : path;
     if (isChapter) {
-      try { localStorage.setItem(LAST_KEY, path); } catch (e) {}
+      try { localStorage.setItem(LAST_KEY, continueUrl); } catch (e) {}
     }
 
     var cont = document.getElementById("tabContinue");
     if (cont) {
-      var last = "chapter1.html";
-      try { last = localStorage.getItem(LAST_KEY) || "chapter1.html"; } catch (e) {}
+      var last = "quiz.html?ch=1";
+      try { last = localStorage.getItem(LAST_KEY) || "quiz.html?ch=1"; } catch (e) {}
       cont.setAttribute("href", last);
     }
 
