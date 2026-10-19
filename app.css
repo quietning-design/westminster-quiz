@@ -679,6 +679,27 @@ a { color: inherit; }
 .chapter-row.disabled { opacity: 0.55; box-shadow: none; }
 .chapter-row.disabled .num { background: var(--surface-2); color: var(--muted); }
 
+.chap-status {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.chap-status.done {
+  background: var(--ok-bg);
+  color: var(--ok-text);
+  border: 1px solid #a7f3d0;
+}
+
+.chap-status.todo {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
 @media (min-width: 720px) {
   .app-main { padding-top: calc(var(--appbar-h) + 16px); }
 }
