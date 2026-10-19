@@ -248,7 +248,7 @@
 
     document.getElementById("nameInput").addEventListener("input", function () {
       WCF.setName(this.value);
-      refresh();
+      renderAll(DATA);
     });
 
     (function init() {
