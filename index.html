@@ -2,264 +2,86 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>《威斯敏斯特信条》（1647）在线测试 · 试题目录</title>
-  <style>
-    :root {
-      --bg-primary: #f6f3ec;
-      --bg-card: #ffffff;
-      --bg-subtle: #efeae0;
-      --text-primary: #1f242d;
-      --text-secondary: #545b67;
-      --text-muted: #7b818c;
-      --accent: #7c2d12;
-      --accent-hover: #9a3412;
-      --border: #dfd8c8;
-      --shadow: 0 4px 20px rgba(31, 36, 45, 0.06);
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "PingFang SC", "Noto Serif SC", "Microsoft YaHei", "Source Han Serif SC", serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.65;
-      padding-bottom: 60px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #271c19 0%, #431407 55%, #1e293b 100%);
-      color: #f8fafc;
-      padding: 48px 20px 44px;
-      text-align: center;
-      border-bottom: 4px solid #d97706;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(245, 158, 11, 0.18);
-      border: 1px solid rgba(245, 158, 11, 0.45);
-      color: #fcd34d;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      padding: 4px 14px;
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.6rem, 3.4vw, 2.3rem);
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: 0.02em;
-    }
-
-    .hero p {
-      color: #cbd5e1;
-      font-size: 1rem;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: -20px auto 0;
-      padding: 0 16px;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 4px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #b45309, #7c2d12);
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(124, 45, 18, 0.14);
-      border-color: #d97706;
-    }
-
-    .card-chapter {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #92400e;
-      background: #ffedd5;
-      padding: 3px 10px;
-      border-radius: 6px;
-      align-self: flex-start;
-    }
-
-    .card h2 {
-      font-size: 1.22rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      color: var(--text-secondary);
-      flex-grow: 1;
-    }
-
-    .card-meta {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .card-meta span {
-      background: var(--bg-subtle);
-      padding: 3px 10px;
-      border-radius: 999px;
-    }
-
-    .card-cta {
-      font-weight: 700;
-      color: var(--accent);
-      font-size: 0.95rem;
-      margin-top: 4px;
-    }
-
-    .card.coming {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .card.coming:hover {
-      transform: none;
-      box-shadow: var(--shadow);
-      border-color: var(--border);
-    }
-
-    .study-tip {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 22px;
-      margin-top: 26px;
-      box-shadow: var(--shadow);
-      font-size: 0.93rem;
-      color: var(--text-secondary);
-    }
-
-    .study-tip strong {
-      color: var(--accent);
-    }
-
-    @media (max-width: 600px) {
-      .hero {
-        padding: 36px 16px 34px;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#431407" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="威敏信条测试" />
+  <title>《威斯敏斯特信条》在线测试</title>
+  <link rel="stylesheet" href="app.css" />
+  <script src="app.js"></script>
 </head>
 <body>
 
-  <header class="hero">
-    <div class="hero-badge">WESTMINSTER CONFESSION OF FAITH (1647)</div>
-    <h1>《威斯敏斯特信条》在线测试</h1>
-    <p>按章编排的单项选择题测试，用于学习小组的预习测试与复习巩固。选择下方章节开始答题</p>
+  <header class="appbar">
+    <span class="appbar-btn" aria-hidden="true">✝</span>
+    <div class="appbar-title">威斯敏斯特信条测试</div>
+    <a class="appbar-btn" href="records.html" aria-label="我的记录">👤</a>
   </header>
 
-  <main class="container">
-    <h2 class="section-title">📖 试题目录</h2>
+  <main class="app-main">
+    <div class="page-head">
+      <h1>在线测试</h1>
+      <p>按章编排的单项选择题，用于学习小组的预习测试与复习巩固。</p>
+    </div>
 
-    <div class="grid">
-      <a class="card" href="chapter1.html">
-        <span class="card-chapter">第一章</span>
+    <div class="section-label">📖 试题目录</div>
+
+    <div class="chapter-list">
+      <a class="chapter-card" href="chapter1.html">
+        <span class="tag chip brand">第一章</span>
         <h2>论圣经</h2>
-        <p>覆盖信条 1.1–1.10 条：圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者。</p>
-        <div class="card-meta">
-          <span>10 道题</span>
-          <span>每题 10 分</span>
-          <span>练习 / 考试模式</span>
+        <p>圣经之至要性、正典范围、次经定性、最高权威、圣灵内证、全备性、清晰性、原文与翻译、以经解经及最高裁决者。</p>
+        <div class="meta-chips">
+          <span class="chip">10 道题</span>
+          <span class="chip">每题 10 分</span>
+          <span class="chip">练习 / 考试</span>
         </div>
         <span class="card-cta">开始答题 →</span>
       </a>
 
-      <a class="card" href="chapter2.html">
-        <span class="card-chapter">第二章</span>
+      <a class="chapter-card" href="chapter2.html">
+        <span class="tag chip brand">第二章</span>
         <h2>论上帝和三位一体</h2>
-        <p>覆盖信条 2.1–2.3 条：上帝的存有与完全、至纯之灵、无限与不变、旨意与荣耀、怜悯与公义、自足、无误的知识、万有的根源与主权，以及三位一体的位格与永恒关系。</p>
-        <div class="card-meta">
-          <span>10 道题</span>
-          <span>每题 10 分</span>
-          <span>练习 / 考试模式</span>
+        <p>上帝的存有与完全、至纯之灵、无限与不变、旨意与荣耀、怜悯与公义、自足、无误的知识、万有的根源与主权，以及三位一体的位格与永恒关系。</p>
+        <div class="meta-chips">
+          <span class="chip">10 道题</span>
+          <span class="chip">每题 10 分</span>
+          <span class="chip">练习 / 考试</span>
         </div>
         <span class="card-cta">开始答题 →</span>
       </a>
 
-      <a class="card" href="records.html">
-        <span class="card-chapter">统计</span>
+      <a class="chapter-card" href="records.html">
+        <span class="tag chip brand">统计</span>
         <h2>我的记录 / 错题集</h2>
-        <p>查看本机保存的考试成绩、个人错题集，以及本机成绩榜。数据仅保存在当前浏览器中，换设备或清除浏览器数据后会丢失。</p>
-        <div class="card-meta">
-          <span>成绩记录</span>
-          <span>个人错题集</span>
-          <span>本机成绩榜</span>
+        <p>本机保存的考试成绩、个人错题集与本机成绩榜。数据仅保存在当前浏览器中。</p>
+        <div class="meta-chips">
+          <span class="chip">成绩记录</span>
+          <span class="chip">个人错题集</span>
+          <span class="chip">本机成绩榜</span>
         </div>
         <span class="card-cta">查看记录 →</span>
       </a>
 
-      <div class="card coming">
-        <span class="card-chapter">后续章节</span>
+      <div class="chapter-card coming">
+        <span class="tag chip">后续章节</span>
         <h2>更多章节陆续推出</h2>
         <p>《威斯敏斯特信条》其余各章的测试题将陆续补充上线，敬请期待。</p>
-        <div class="card-meta">
-          <span>敬请期待</span>
+        <div class="meta-chips">
+          <span class="chip">敬请期待</span>
         </div>
       </div>
     </div>
-
-    <aside class="study-tip">
-      💡 <strong>使用提示：</strong>
-      每章测试均提供<strong>练习模式</strong>（选完即刻显示对错与神学解析）与<strong>考试模式</strong>（答完全卷后统一交卷计分，并可“仅看错题”复盘）。支持题号导航与键盘 A/B/C/D、左右方向键作答。
-    </aside>
   </main>
+
+  <nav class="tabbar">
+    <a class="tab-item" href="index.html"><span class="ico">🏠</span>目录</a>
+    <a class="tab-item" href="chapter1.html"><span class="ico">📖</span>第一章</a>
+    <a class="tab-item" href="chapter2.html"><span class="ico">📜</span>第二章</a>
+    <a class="tab-item" href="records.html"><span class="ico">👤</span>我的</a>
+  </nav>
 
 </body>
 </html>
