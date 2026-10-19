@@ -38,10 +38,28 @@
   document.addEventListener("DOMContentLoaded", function () {
     var path = (location.pathname.split("/").pop() || "").toLowerCase();
     if (!path) path = "index.html";
+
+    var LAST_KEY = "wcf_last_chapter";
+    var isChapter = /^chapter\d+\.html$/.test(path);
+    if (isChapter) {
+      try { localStorage.setItem(LAST_KEY, path); } catch (e) {}
+    }
+
+    var cont = document.getElementById("tabContinue");
+    if (cont) {
+      var last = "chapter1.html";
+      try { last = localStorage.getItem(LAST_KEY) || "chapter1.html"; } catch (e) {}
+      cont.setAttribute("href", last);
+    }
+
     var links = document.querySelectorAll(".tab-item");
     for (var i = 0; i < links.length; i++) {
-      var href = (links[i].getAttribute("href") || "").toLowerCase();
-      if (href === path) links[i].classList.add("active");
+      var el = links[i];
+      var href = (el.getAttribute("href") || "").toLowerCase();
+      var isCont = el.id === "tabContinue";
+      if ((isCont && isChapter) || (!isCont && href === path)) {
+        el.classList.add("active");
+      }
     }
   });
 })();
