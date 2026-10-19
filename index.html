@@ -10,7 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="威敏信条测试" />
   <title>《威斯敏斯特信条》在线测试</title>
   <link rel="stylesheet" href="app.css?v=3" />
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
+  <script src="cloud.js?v=1"></script>
   <script src="chapters.js"></script>
 </head>
 <body>
@@ -52,10 +53,13 @@
   </nav>
 
   <script>
+    let DATA = [];
+    if (window.WCF) { DATA = WCF.getRecords(); }
+
     function chapterStatus(num) {
       const name = (WCF.getName() || "").trim();
       if (!name) return { tested: false };
-      const recs = WCF.getRecords().filter(function (r) {
+      const recs = DATA.filter(function (r) {
         return r.chapterId === ("ch" + num) && (r.name || "").trim() === name;
       });
       if (!recs.length) return { tested: false };
@@ -63,6 +67,22 @@
       const latest = recs[0];
       const best = recs.reduce(function (m, r) { return Math.max(m, r.score || 0); }, 0);
       return { tested: true, latest: latest.score || 0, best: best, count: recs.length };
+    }
+
+    function updateSummary() {
+      const all = window.WCF_CHAPTERS || [];
+      const ready = all.filter(function (c) { return c.ready; }).length;
+      const name = (WCF.getName() || "").trim();
+      let tested = 0;
+      if (name) {
+        all.forEach(function (c) { if (c.ready && chapterStatus(c.num).tested) tested++; });
+      }
+      const el = document.getElementById("listSummary");
+      if (el) el.textContent = "共 " + all.length + " 章 · 已上线 " + ready + " 章" + (name ? " · 已测试 " + tested + " 章" : "");
+      const hint = document.getElementById("statusHint");
+      if (hint) hint.textContent = name
+        ? "徽标显示「" + name + "」的最新成绩（云端同步，含跨设备记录）；未测试的章节显示为灰色。"
+        : "填写姓名并完成测试后，这里会显示各章成绩；当前尚未录入姓名。";
     }
 
     function renderChapters() {
@@ -107,20 +127,15 @@
     }
 
     (function init() {
-      const all = window.WCF_CHAPTERS || [];
-      const ready = all.filter(function (c) { return c.ready; }).length;
-      const name = (WCF.getName() || "").trim();
-      let tested = 0;
-      if (name) {
-        all.forEach(function (c) { if (c.ready && chapterStatus(c.num).tested) tested++; });
-      }
-      const el = document.getElementById("listSummary");
-      if (el) el.textContent = "共 " + all.length + " 章 · 已上线 " + ready + " 章" + (name ? " · 已测试 " + tested + " 章" : "");
-      const hint = document.getElementById("statusHint");
-      if (hint) hint.textContent = name
-        ? "徽标显示「" + name + "」在本机各章的最新成绩；未测试的章节显示为灰色。"
-        : "填写姓名并完成测试后，这里会显示各章成绩；当前尚未录入姓名。";
+      updateSummary();
       renderChapters();
+      if (window.Cloud && Cloud.enabled) {
+        Cloud.getMergedRecords().then(function (rs) {
+          DATA = rs || DATA;
+          updateSummary();
+          renderChapters();
+        }).catch(function () {});
+      }
     })();
   </script>
 </body>
