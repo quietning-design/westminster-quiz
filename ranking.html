@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#431407" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>成绩排名 · 威斯敏斯特信条在线测试</title>
+  <link rel="stylesheet" href="app.css?v=3" />
+  <script src="app.js?v=3"></script>
+  <script src="cloud.js?v=1"></script>
+  <script src="chapters.js"></script>
+</head>
+<body>
+
+  <header class="appbar">
+    <a class="appbar-btn" href="index.html" aria-label="返回目录">‹</a>
+    <div class="appbar-title">成绩排名</div>
+    <button class="appbar-btn" onclick="load()" aria-label="刷新">⟳</button>
+  </header>
+
+  <main class="app-main">
+    <div class="card" style="padding:14px 16px;">
+      <div class="field" style="margin-top:0;">
+        <label for="chapterSel">章节</label>
+        <select id="chapterSel" onchange="render()" style="flex:1;min-width:0;border:none;background:transparent;font-family:inherit;font-size:0.95rem;color:var(--text);outline:none;padding:6px 0;">
+          <option value="all">全部章节</option>
+        </select>
+      </div>
+      <div class="hint" id="rankHint" style="margin-top:10px;">正在加载云端成绩…</div>
+    </div>
+
+    <section class="card">
+      <h2>🏆 全员成绩排名</h2>
+      <div id="boardWrap"></div>
+      <div class="hint">按<strong>最高分</strong>排序；同分再比平均分与次数。数据来自云端数据库，含所有设备提交的成绩。</div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <a class="tab-item" href="index.html"><span class="ico">🏠</span>目录</a>
+    <a class="tab-item" id="tabContinue" href="quiz.html?ch=1"><span class="ico">▶</span>继续</a>
+    <a class="tab-item" href="ranking.html"><span class="ico">🏆</span>排名</a>
+    <a class="tab-item" href="records.html"><span class="ico">👤</span>我的</a>
+  </nav>
+
+  <script>
+    let DATA = [];
+    let LOADED = false;
+
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function buildChapterOptions() {
+      const sel = document.getElementById("chapterSel");
+      const all = window.WCF_CHAPTERS || [];
+      let html = '<option value="all">全部章节</option>';
+      all.forEach(function (c) {
+        if (c.ready) html += '<option value="' + c.num + '">第 ' + c.num + ' 章 · ' + c.title + '</option>';
+      });
+      sel.innerHTML = html;
+    }
+
+    function computeBoard(records, filter) {
+      const list = (filter === "all") ? records : records.filter(function (r) { return r.chapterId === ("ch" + filter); });
+      const agg = {};
+      list.forEach(function (r) {
+        const n = (r.name || "").trim() || "匿名";
+        if (!agg[n]) agg[n] = { best: 0, total: 0, attempts: 0, chapters: {} };
+        agg[n].attempts += 1;
+        agg[n].total += (r.score || 0);
+        agg[n].best = Math.max(agg[n].best, r.score || 0);
+        agg[n].chapters[r.chapterId] = 1;
+      });
+      return Object.keys(agg).map(function (n) {
+        return {
+          name: n,
+          best: agg[n].best,
+          avg: Math.round(agg[n].total / agg[n].attempts),
+          attempts: agg[n].attempts,
+          chapters: Object.keys(agg[n].chapters).length
+        };
+      });
+    }
+
+    function render() {
+      const wrap = document.getElementById("boardWrap");
+      const hint = document.getElementById("rankHint");
+      const filter = document.getElementById("chapterSel").value || "all";
+      const me = (WCF.getName() || "").trim();
+
+      if (!LOADED) {
+        hint.textContent = "正在加载云端成绩…";
+        wrap.innerHTML = '<div class="empty">加载中…</div>';
+        return;
+      }
+
+      const board = computeBoard(DATA, filter);
+      if (!board.length) {
+        wrap.innerHTML = '<div class="empty">暂无成绩记录</div>';
+        hint.textContent = (filter === "all" ? "云端暂无数据" : "本章暂无成绩") + "。完成一次测试后即会出现。";
+        return;
+      }
+
+      board.sort(function (a, b) { return b.best - a.best || b.avg - a.avg || b.attempts - a.attempts; });
+
+      hint.textContent = "共 " + board.length + " 位考生 · " + (filter === "all" ? "全部章节" : "第 " + filter + " 章") + " · 数据来自云端";
+
+      let html = "";
+      board.forEach(function (p, i) {
+        const isMe = me && p.name === me;
+        html += '<div class="rank-row ' + (i < 3 ? "top" : "") + '">' +
+          '<div class="rank-no">' + (i + 1) + '</div>' +
+          '<div class="who">' + escapeHtml(p.name) + (isMe ? ' <span class="chip brand">我</span>' : '') +
+            '<div class="detail">平均 ' + p.avg + ' 分 · ' + p.attempts + ' 次 · 已测 ' + p.chapters + ' 章</div>' +
+          '</div>' +
+          '<div class="best">' + p.best + '</div>' +
+        '</div>';
+      });
+      wrap.innerHTML = html;
+    }
+
+    function load() {
+      LOADED = false;
+      render();
+      if (window.Cloud && Cloud.enabled) {
+        Cloud.getMergedRecords().then(function (rs) {
+          DATA = rs || [];
+          LOADED = true;
+          render();
+        }).catch(function () {
+          DATA = WCF.getRecords();
+          LOADED = true;
+          render();
+        });
+      } else {
+        DATA = WCF.getRecords();
+        LOADED = true;
+        render();
+      }
+    }
+
+    (function init() {
+      buildChapterOptions();
+      load();
+    })();
+  </script>
+</body>
+</html>
