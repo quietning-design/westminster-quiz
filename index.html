@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="威敏信条测试" />
   <title>《威斯敏斯特信条》在线测试</title>
-  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="app.css?v=3" />
   <script src="app.js"></script>
   <script src="chapters.js"></script>
 </head>
@@ -30,6 +30,7 @@
     <div style="margin-bottom:12px;">
       <input id="chapterFilter" class="filter-input" type="text" placeholder="搜索章节（如：圣经 / 三位一体）" oninput="renderChapters()" />
     </div>
+    <div class="hint" id="statusHint" style="margin:-4px 4px 12px;"></div>
 
     <div class="section-label">📖 章节列表</div>
     <div class="chapter-list" id="chapterList"></div>
@@ -51,11 +52,24 @@
   </nav>
 
   <script>
+    function chapterStatus(num) {
+      const name = (WCF.getName() || "").trim();
+      if (!name) return { tested: false };
+      const recs = WCF.getRecords().filter(function (r) {
+        return r.chapterId === ("ch" + num) && (r.name || "").trim() === name;
+      });
+      if (!recs.length) return { tested: false };
+      recs.sort(function (a, b) { return new Date(b.date || 0) - new Date(a.date || 0); });
+      const latest = recs[0];
+      const best = recs.reduce(function (m, r) { return Math.max(m, r.score || 0); }, 0);
+      return { tested: true, latest: latest.score || 0, best: best, count: recs.length };
+    }
+
     function renderChapters() {
       const kw = (document.getElementById("chapterFilter").value || "").trim().toLowerCase();
       const list = document.getElementById("chapterList");
       const all = window.WCF_CHAPTERS || [];
-      const items = all.filter(c => {
+      const items = all.filter(function (c) {
         if (!kw) return true;
         const hay = (String(c.num) + " " + (c.title || "") + " " + (c.desc || "")).toLowerCase();
         return hay.indexOf(kw) !== -1;
@@ -67,14 +81,22 @@
       }
 
       let html = "";
-      items.forEach(c => {
+      items.forEach(function (c) {
         const disabled = !c.ready;
+        let statusHtml = "";
+        if (c.ready) {
+          const st = chapterStatus(c.num);
+          statusHtml = st.tested
+            ? '<span class="chap-status done" title="最好 ' + st.best + ' 分 · 共测 ' + st.count + ' 次">✓ ' + st.latest + ' 分</span>'
+            : '<span class="chap-status todo">未测试</span>';
+        }
         const inner =
           '<div class="num">' + c.num + '</div>' +
           '<div class="info">' +
             '<h3>' + c.title + (c.ready ? '' : ' <span class="chip">待上线</span>') + '</h3>' +
             (c.desc ? '<p>' + c.desc + '</p>' : '') +
           '</div>' +
+          statusHtml +
           (c.ready ? '<div class="go">›</div>' : '');
 
         html += disabled
@@ -86,9 +108,18 @@
 
     (function init() {
       const all = window.WCF_CHAPTERS || [];
-      const ready = all.filter(c => c.ready).length;
+      const ready = all.filter(function (c) { return c.ready; }).length;
+      const name = (WCF.getName() || "").trim();
+      let tested = 0;
+      if (name) {
+        all.forEach(function (c) { if (c.ready && chapterStatus(c.num).tested) tested++; });
+      }
       const el = document.getElementById("listSummary");
-      if (el) el.textContent = `共 ${all.length} 章 · 已上线 ${ready} 章`;
+      if (el) el.textContent = "共 " + all.length + " 章 · 已上线 " + ready + " 章" + (name ? " · 已测试 " + tested + " 章" : "");
+      const hint = document.getElementById("statusHint");
+      if (hint) hint.textContent = name
+        ? "徽标显示「" + name + "」在本机各章的最新成绩；未测试的章节显示为灰色。"
+        : "填写姓名并完成测试后，这里会显示各章成绩；当前尚未录入姓名。";
       renderChapters();
     })();
   </script>
